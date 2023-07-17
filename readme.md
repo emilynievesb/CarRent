@@ -13,3 +13,9 @@ Desarrollar un sistema de gestión de alquiler de carros que permita a los usuar
 - Crear un mecanismo para registrar y rastrear las novedades relacionadas con los carros alquilados, como pinchazos de llantas, accidentes, daños en la carrocería, problemas mecánicos, etc.
 - Implementar funcionalidades que permitan a los usuarios generar informes sobre las novedades ocurridas durante el período de alquiler, con detalles específicos de cada incidente.
 - Desarrollar un sistema de administración que permita a los empleados del local de alquiler gestionar las reservas, dar seguimiento a las novedades y actualizar el estado de los carros en la base de datos.
+
+## Estructura base de datos
+
+Esta sería la estructura que tendría la base de datos para el proyecto.
+
+![Diagrama de entidad relación](./img/diagrama.png)
