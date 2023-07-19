@@ -1,0 +1,20 @@
+{
+  "name": "carrent",
+  "version": "1.0.0",
+  "description": "CarRent es un proyecto que tiene como objetivo desarrollar un sistema de gestión de alquiler de carros, proporcionando una plataforma eficiente y confiable para reservar vehículos para fechas específicas. El proyecto también busca facilitar el seguimiento de novedades relacionadas con los carros alquilados, como accidentes, daños o problemas mecánicos. A través de una base de datos sólida y funcionalidades especializadas, CarRent busca mejorar la experiencia de alquiler de carros y brindar un servicio de calidad a sus usuarios.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "3.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.5.2",
+    "yup": "^1.2.0"
+  }
+}
