@@ -1,4 +1,4 @@
-import { agregarCarro } from "../services/postServices.js";
+import { agregarCarro, agregarRol } from "../services/postServices.js";
 
 const agregarCarroController = async (req, res, next) => {
   try {
@@ -34,4 +34,14 @@ const agregarCarroController = async (req, res, next) => {
   }
 };
 
-export { agregarCarroController };
+const agregarRolController = async (req, res, next) => {
+  try {
+    const { Rol } = req.body;
+    const result = await agregarRol(Rol);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export { agregarCarroController, agregarRolController };

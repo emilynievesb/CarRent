@@ -1,4 +1,5 @@
 import { Carro } from "../entities/carro.js";
+import { Rol } from "../entities/rol.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -29,7 +30,15 @@ const agregarCarro = async (
   if (query.affectedRows === 1) {
     return "Carro agregado con exito";
   }
-  return query;
 };
 
-export { agregarCarro };
+const agregarRol = async (nombre_rol) => {
+  const rol = new Rol();
+  rol.nombre_rol = nombre_rol;
+  const query = await rol.agregarRol();
+  if (query.affectedRows === 1) {
+    return "Rol agregado correctamente";
+  }
+};
+
+export { agregarCarro, agregarRol };
