@@ -1,5 +1,6 @@
 import {
   agregarCarro,
+  agregarNacionalidad,
   agregarRol,
   agregarTipoDocumento,
 } from "../services/postServices.js";
@@ -58,8 +59,19 @@ const agregarTipoDocumentoController = async (req, res, next) => {
   }
 };
 
+const agregarNacionalidadController = async (req, res, next) => {
+  try {
+    const { Nacionalidad } = req.body;
+    const result = await agregarNacionalidad(Nacionalidad);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
   agregarTipoDocumentoController,
+  agregarNacionalidadController,
 };

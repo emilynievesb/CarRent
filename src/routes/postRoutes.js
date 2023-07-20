@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   agregarCarroController,
+  agregarNacionalidadController,
   agregarRolController,
   agregarTipoDocumentoController,
 } from "../controllers/postData.js";
@@ -10,6 +11,7 @@ const postInitRoute = () => {
   router.post("/agregarCarro", agregarCarroController);
   router.post("/agregarRol", agregarRolController);
   router.post("/agregarTipoDocumento", agregarTipoDocumentoController);
+  router.post("/agregarNacionalidad", agregarNacionalidadController);
   return router;
 };
 
