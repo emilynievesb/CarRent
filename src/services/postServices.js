@@ -1,4 +1,5 @@
 import { Carro } from "../entities/carro.js";
+import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Rol } from "../entities/rol.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
@@ -91,10 +92,19 @@ const agregarUsuario = async (
   }
 };
 
+const agregarEstadoVigencia = async (nombre_estado) => {
+  const estado = new EstadoVigencia();
+  estado.nombre_estado = nombre_estado;
+  const query = await estado.agregarEstadoVigencia();
+  if (query.affectedRows === 1) {
+    return "Estado agregado correctamente";
+  }
+};
 export {
   agregarCarro,
   agregarRol,
   agregarTipoDocumento,
   agregarNacionalidad,
   agregarUsuario,
+  agregarEstadoVigencia,
 };

@@ -1,5 +1,6 @@
 import {
   agregarCarro,
+  agregarEstadoVigencia,
   agregarNacionalidad,
   agregarRol,
   agregarTipoDocumento,
@@ -102,10 +103,21 @@ const agregarUsuarioController = async (req, res, next) => {
   }
 };
 
+const agregarEstadoVigenciaController = async (req, res, next) => {
+  try {
+    const { EstadoVigencia } = req.body;
+    const result = await agregarEstadoVigencia(EstadoVigencia);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
   agregarTipoDocumentoController,
   agregarNacionalidadController,
   agregarUsuarioController,
+  agregarEstadoVigenciaController,
 };
