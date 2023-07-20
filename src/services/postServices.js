@@ -2,6 +2,7 @@ import { Carro } from "../entities/carro.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Rol } from "../entities/rol.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
+import { User } from "../entities/user.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -61,4 +62,39 @@ const agregarNacionalidad = async (nombre_nacionalidad) => {
   }
 };
 
-export { agregarCarro, agregarRol, agregarTipoDocumento, agregarNacionalidad };
+const agregarUsuario = async (
+  doc_user,
+  id_tipo_doc,
+  nombre_user,
+  correo_user,
+  direccion_user,
+  telefono_user,
+  id_nacionalidad,
+  nickname_user,
+  contrasena_user,
+  id_rol
+) => {
+  const user = new User();
+  user.doc_user = doc_user;
+  user.id_tipo_doc = id_tipo_doc;
+  user.nombre_user = nombre_user;
+  user.correo_user = correo_user;
+  user.direccion_user = direccion_user;
+  user.telefono_user = telefono_user;
+  user.id_nacionalidad = id_nacionalidad;
+  user.nickname_user = nickname_user;
+  user.contrasena_user = contrasena_user;
+  user.id_rol = id_rol;
+  const query = await user.agregarUser();
+  if (query.affectedRows === 1) {
+    return "Usuario agregado correctamente";
+  }
+};
+
+export {
+  agregarCarro,
+  agregarRol,
+  agregarTipoDocumento,
+  agregarNacionalidad,
+  agregarUsuario,
+};

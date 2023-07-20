@@ -3,6 +3,7 @@ import {
   agregarNacionalidad,
   agregarRol,
   agregarTipoDocumento,
+  agregarUsuario,
 } from "../services/postServices.js";
 
 const agregarCarroController = async (req, res, next) => {
@@ -69,9 +70,42 @@ const agregarNacionalidadController = async (req, res, next) => {
   }
 };
 
+const agregarUsuarioController = async (req, res, next) => {
+  try {
+    const {
+      Documento,
+      IdTipoDocumento,
+      Nombre,
+      Correo,
+      Direccion,
+      Telefono,
+      IdNacionalidad,
+      Usuario,
+      Contraseña,
+      IdRol,
+    } = req.body;
+    const result = await agregarUsuario(
+      Documento,
+      IdTipoDocumento,
+      Nombre,
+      Correo,
+      Direccion,
+      Telefono,
+      IdNacionalidad,
+      Usuario,
+      Contraseña,
+      IdRol
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
   agregarTipoDocumentoController,
   agregarNacionalidadController,
+  agregarUsuarioController,
 };
