@@ -1,5 +1,6 @@
 import { Carro } from "../entities/carro.js";
 import { Rol } from "../entities/rol.js";
+import { TipoDocumento } from "../entities/tipodocumento.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -41,4 +42,13 @@ const agregarRol = async (nombre_rol) => {
   }
 };
 
-export { agregarCarro, agregarRol };
+const agregarTipoDocumento = async (nombre_tipo_documento) => {
+  const tipo_documento = new TipoDocumento();
+  tipo_documento.nombre_tipo_documento = nombre_tipo_documento;
+  const query = await tipo_documento.agregarTipoDocumento();
+  if (query.affectedRows === 1) {
+    return "Tipo de documento agregado correctamente";
+  }
+};
+
+export { agregarCarro, agregarRol, agregarTipoDocumento };
