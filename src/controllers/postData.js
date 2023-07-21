@@ -3,6 +3,7 @@ import {
   agregarEstadoVigencia,
   agregarNacionalidad,
   agregarRol,
+  agregarSoat,
   agregarTipoDocumento,
   agregarUsuario,
 } from "../services/postServices.js";
@@ -113,6 +114,16 @@ const agregarEstadoVigenciaController = async (req, res, next) => {
   }
 };
 
+const agregarSoatController = async (req, res, next) => {
+  try {
+    const { FechaInicio, FechaVencimiento, IdEstado } = req.body;
+    const result = await agregarSoat(FechaInicio, FechaVencimiento, IdEstado);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
@@ -120,4 +131,5 @@ export {
   agregarNacionalidadController,
   agregarUsuarioController,
   agregarEstadoVigenciaController,
+  agregarSoatController,
 };

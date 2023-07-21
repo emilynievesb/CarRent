@@ -6,6 +6,7 @@ import {
   agregarTipoDocumentoController,
   agregarUsuarioController,
   agregarEstadoVigenciaController,
+  agregarSoatController,
 } from "../controllers/postData.js";
 
 const postInitRoute = () => {
@@ -16,6 +17,7 @@ const postInitRoute = () => {
   router.post("/agregarNacionalidad", agregarNacionalidadController);
   router.post("/agregarUsuario", agregarUsuarioController);
   router.post("/agregarEstadoVigencia", agregarEstadoVigenciaController);
+  router.post("/agregarSoat", agregarSoatController);
   return router;
 };
 
