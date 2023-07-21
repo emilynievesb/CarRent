@@ -2,6 +2,7 @@ import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Rol } from "../entities/rol.js";
+import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
 import { User } from "../entities/user.js";
@@ -116,6 +117,22 @@ const agregarSoat = async (
     return "Soat agregado correctamente";
   }
 };
+
+const agregarSeguro = async (
+  fecha_inicio_seguro,
+  fecha_vencimiento_seguro,
+  id_estado
+) => {
+  const seguro = new Seguro();
+  seguro.fecha_inicio_seguro = fecha_inicio_seguro;
+  seguro.fecha_vencimiento_seguro = fecha_vencimiento_seguro;
+  seguro.id_estado = id_estado;
+  const query = await seguro.agregarSeguro();
+  if (query.affectedRows === 1) {
+    return "Seguro creado correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -124,4 +141,5 @@ export {
   agregarUsuario,
   agregarEstadoVigencia,
   agregarSoat,
+  agregarSeguro,
 };

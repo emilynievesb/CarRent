@@ -3,6 +3,7 @@ import {
   agregarEstadoVigencia,
   agregarNacionalidad,
   agregarRol,
+  agregarSeguro,
   agregarSoat,
   agregarTipoDocumento,
   agregarUsuario,
@@ -124,6 +125,16 @@ const agregarSoatController = async (req, res, next) => {
   }
 };
 
+const agregarSeguroController = async (req, res, next) => {
+  try {
+    const { FechaInicio, FechaVencimiento, IdEstado } = req.body;
+    const result = await agregarSeguro(FechaInicio, FechaVencimiento, IdEstado);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
@@ -132,4 +143,5 @@ export {
   agregarUsuarioController,
   agregarEstadoVigenciaController,
   agregarSoatController,
+  agregarSeguroController,
 };
