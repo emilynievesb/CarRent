@@ -6,6 +6,7 @@ import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
 import { Tecnicomec } from "../entities/tecnicomec.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
+import { TipoNovedad } from "../entities/tiponovedad.js";
 import { User } from "../entities/user.js";
 
 const agregarCarro = async (
@@ -149,6 +150,16 @@ const agregarTecnicomec = async (
   }
 };
 
+const agregarTipoNovedad = async (nombre_tipo_novedad, precio_tipo_novedad) => {
+  const tipoNovedad = new TipoNovedad();
+  tipoNovedad.nombre_tipo_novedad = nombre_tipo_novedad;
+  tipoNovedad.precio_tipo_novedad = precio_tipo_novedad;
+  const query = await tipoNovedad.agregarTipoNovedad();
+  if (query.affectedRows === 1) {
+    return "Tipo de novedad creada correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -159,4 +170,5 @@ export {
   agregarSoat,
   agregarSeguro,
   agregarTecnicomec,
+  agregarTipoNovedad,
 };

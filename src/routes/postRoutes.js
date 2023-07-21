@@ -9,6 +9,7 @@ import {
   agregarSoatController,
   agregarSeguroController,
   agregarTecnicomecController,
+  agregarTipoNovedadController,
 } from "../controllers/postData.js";
 
 const postInitRoute = () => {
@@ -22,6 +23,7 @@ const postInitRoute = () => {
   router.post("/agregarSoat", agregarSoatController);
   router.post("/agregarSeguro", agregarSeguroController);
   router.post("/agregarTecnicomec", agregarTecnicomecController);
+  router.post("/agregarTipoNovedad", agregarTipoNovedadController);
   return router;
 };
 
