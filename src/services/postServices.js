@@ -4,6 +4,7 @@ import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Rol } from "../entities/rol.js";
 import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
+import { Tecnicomec } from "../entities/tecnicomec.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
 import { User } from "../entities/user.js";
 
@@ -133,6 +134,21 @@ const agregarSeguro = async (
   }
 };
 
+const agregarTecnicomec = async (
+  fecha_inicio_tecnicomec,
+  fecha_vencimiento_tecnicomec,
+  id_estado
+) => {
+  const tecnicomec = new Tecnicomec();
+  tecnicomec.fecha_inicio_tecnicomec = fecha_inicio_tecnicomec;
+  tecnicomec.fecha_vencimiento_tecnicomec = fecha_vencimiento_tecnicomec;
+  tecnicomec.id_estado = id_estado;
+  const query = await tecnicomec.agregarTecnicomec();
+  if (query.affectedRows === 1) {
+    return "Tecnicomecánica creada correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -142,4 +158,5 @@ export {
   agregarEstadoVigencia,
   agregarSoat,
   agregarSeguro,
+  agregarTecnicomec,
 };

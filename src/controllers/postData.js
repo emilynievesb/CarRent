@@ -5,6 +5,7 @@ import {
   agregarRol,
   agregarSeguro,
   agregarSoat,
+  agregarTecnicomec,
   agregarTipoDocumento,
   agregarUsuario,
 } from "../services/postServices.js";
@@ -135,6 +136,20 @@ const agregarSeguroController = async (req, res, next) => {
   }
 };
 
+const agregarTecnicomecController = async (req, res, next) => {
+  try {
+    const { FechaInicio, FechaVencimiento, IdEstado } = req.body;
+    const result = await agregarTecnicomec(
+      FechaInicio,
+      FechaVencimiento,
+      IdEstado
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
@@ -144,4 +159,5 @@ export {
   agregarEstadoVigenciaController,
   agregarSoatController,
   agregarSeguroController,
+  agregarTecnicomecController,
 };
