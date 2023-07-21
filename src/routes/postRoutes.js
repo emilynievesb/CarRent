@@ -11,6 +11,7 @@ import {
   agregarTecnicomecController,
   agregarTipoNovedadController,
   agregarTipoCarroController,
+  agregarSedeController,
 } from "../controllers/postData.js";
 
 const postInitRoute = () => {
@@ -26,6 +27,7 @@ const postInitRoute = () => {
   router.post("/agregarTecnicomec", agregarTecnicomecController);
   router.post("/agregarTipoNovedad", agregarTipoNovedadController);
   router.post("/agregarTipoCarro", agregarTipoCarroController);
+  router.post("/agregarSede", agregarSedeController);
   return router;
 };
 

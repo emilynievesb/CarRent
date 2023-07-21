@@ -2,6 +2,7 @@ import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Rol } from "../entities/rol.js";
+import { Sede } from "../entities/sede.js";
 import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
 import { Tecnicomec } from "../entities/tecnicomec.js";
@@ -170,6 +171,17 @@ const agregarTipoCarro = async (nombre_tipo_carro) => {
   }
 };
 
+const agregarSede = async (ciudad_sede, telefono_sede, direccion_sede) => {
+  const sede = new Sede();
+  sede.ciudad_sede = ciudad_sede;
+  sede.telefono_sede = telefono_sede;
+  sede.direccion_sede = direccion_sede;
+  const query = await sede.agregarSede();
+  if (query.affectedRows === 1) {
+    return "Sede creada correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -182,4 +194,5 @@ export {
   agregarTecnicomec,
   agregarTipoNovedad,
   agregarTipoCarro,
+  agregarSede,
 };
