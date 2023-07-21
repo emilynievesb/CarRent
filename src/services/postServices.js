@@ -1,6 +1,7 @@
 import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
+import { Novedades } from "../entities/novedades.js";
 import { Rol } from "../entities/rol.js";
 import { Sede } from "../entities/sede.js";
 import { Seguro } from "../entities/seguro.js";
@@ -182,6 +183,21 @@ const agregarSede = async (ciudad_sede, telefono_sede, direccion_sede) => {
   }
 };
 
+const agregarNovedad = async (
+  id_tipo_novedad,
+  descripcion_novedad,
+  id_historial
+) => {
+  const novedad = new Novedades();
+  novedad.id_tipo_novedad = id_tipo_novedad;
+  novedad.descripcion_novedad = descripcion_novedad;
+  novedad.id_historial = id_historial;
+  const query = await novedad.agregarNovedades();
+  if (query.affectedRows === 1) {
+    return "Novedad creada correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -195,4 +211,5 @@ export {
   agregarTipoNovedad,
   agregarTipoCarro,
   agregarSede,
+  agregarNovedad,
 };
