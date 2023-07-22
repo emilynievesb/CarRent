@@ -1,5 +1,6 @@
 import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
+import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Novedades } from "../entities/novedades.js";
 import { Rol } from "../entities/rol.js";
@@ -198,6 +199,15 @@ const agregarNovedad = async (
   }
 };
 
+const agregarHistorialNovedades = async (acumulado_daños) => {
+  const historial = new HistorialNovedades();
+  historial.acumulado_daños = acumulado_daños;
+  const query = await historial.agregarHistorialNovedades();
+  if (query.affectedRows === 1) {
+    return "Historial creado correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -212,4 +222,5 @@ export {
   agregarTipoCarro,
   agregarSede,
   agregarNovedad,
+  agregarHistorialNovedades,
 };
