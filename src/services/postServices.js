@@ -3,6 +3,7 @@ import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Novedades } from "../entities/novedades.js";
+import { ReporteAlquiler } from "../entities/reportealquiler.js";
 import { Rol } from "../entities/rol.js";
 import { Sede } from "../entities/sede.js";
 import { Seguro } from "../entities/seguro.js";
@@ -208,6 +209,29 @@ const agregarHistorialNovedades = async (acumulado_daños) => {
   }
 };
 
+const agregarReporteAlquiler = async (
+  id_user,
+  id_carro,
+  fecha_inicio_alquiler,
+  fecha_final_alquiler,
+  precio_cotizado_alquiler,
+  monto_fianza,
+  id_historial_novedades
+) => {
+  const reporte = new ReporteAlquiler();
+  reporte.id_user = id_user;
+  reporte.id_carro = id_carro;
+  reporte.fecha_inicio_alquiler = fecha_inicio_alquiler;
+  reporte.fecha_final_alquiler = fecha_final_alquiler;
+  reporte.precio_cotizado_alquiler = precio_cotizado_alquiler;
+  reporte.monto_fianza = monto_fianza;
+  reporte.id_historial_novedades = id_historial_novedades;
+  const query = await reporte.agregarReporteAlquiler();
+  if (query.affectedRows === 1) {
+    return "Reporte de alquiler creado correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -223,4 +247,5 @@ export {
   agregarSede,
   agregarNovedad,
   agregarHistorialNovedades,
+  agregarReporteAlquiler,
 };

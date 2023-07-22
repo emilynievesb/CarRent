@@ -14,6 +14,7 @@ import {
   agregarSedeController,
   agregarNovedadController,
   agregarHistorialNovedadesController,
+  agregarReporteAlquilerController,
 } from "../controllers/postData.js";
 
 const postInitRoute = () => {
@@ -32,6 +33,7 @@ const postInitRoute = () => {
   router.post("/agregarSede", agregarSedeController);
   router.post("/agregarNovedad", agregarNovedadController);
   router.post("/agregarHistorial", agregarHistorialNovedadesController);
+  router.post("/agregarReporte", agregarReporteAlquilerController);
   return router;
 };
 
