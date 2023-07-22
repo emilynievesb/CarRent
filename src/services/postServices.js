@@ -1,5 +1,6 @@
 import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
+import { Factura } from "../entities/factura.js";
 import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Novedades } from "../entities/novedades.js";
@@ -232,6 +233,23 @@ const agregarReporteAlquiler = async (
   }
 };
 
+const agregarFactura = async (
+  id_reporte_alquiler,
+  fecha_final_real,
+  dias_extra,
+  total_pago_alquiler
+) => {
+  const factura = new Factura();
+  factura.id_reporte_alquiler = id_reporte_alquiler;
+  factura.fecha_final_real = fecha_final_real;
+  factura.dias_extra = dias_extra;
+  factura.total_pago_alquiler = total_pago_alquiler;
+  const query = await factura.agregarFactura();
+  if (query.affectedRows === 1) {
+    return "Factura creada correctamente";
+  }
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -248,4 +266,5 @@ export {
   agregarNovedad,
   agregarHistorialNovedades,
   agregarReporteAlquiler,
+  agregarFactura,
 };

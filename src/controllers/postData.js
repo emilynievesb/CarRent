@@ -1,6 +1,7 @@
 import {
   agregarCarro,
   agregarEstadoVigencia,
+  agregarFactura,
   agregarHistorialNovedades,
   agregarNacionalidad,
   agregarNovedad,
@@ -236,6 +237,21 @@ const agregarReporteAlquilerController = async (req, res, next) => {
   }
 };
 
+const agregarFacturaController = async (req, res, next) => {
+  try {
+    const { IdReporte, FechaEntregaCarro, DiasExtra, TotalPago } = req.body;
+    const result = await agregarFactura(
+      IdReporte,
+      FechaEntregaCarro,
+      DiasExtra,
+      TotalPago
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
@@ -252,4 +268,5 @@ export {
   agregarNovedadController,
   agregarHistorialNovedadesController,
   agregarReporteAlquilerController,
+  agregarFacturaController,
 };
