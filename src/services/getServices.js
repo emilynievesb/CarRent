@@ -14,4 +14,18 @@ const datosParaFacturaAlquilerById = async (id) => {
   return result;
 };
 
-export { getPrecioHoraById, datosParaFacturaAlquilerById };
+const obtenerTodosLosCarros = async () => {
+  const carro = new Carro();
+  try {
+    const carros = await carro.obtenerTodosLosCarros();
+    return carros;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export {
+  getPrecioHoraById,
+  datosParaFacturaAlquilerById,
+  obtenerTodosLosCarros,
+};

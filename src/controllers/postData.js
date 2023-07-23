@@ -2,7 +2,6 @@ import {
   agregarCarro,
   agregarEstadoVigencia,
   agregarFactura,
-  agregarHistorialNovedades,
   agregarNacionalidad,
   agregarNovedad,
   agregarReporteAlquiler,

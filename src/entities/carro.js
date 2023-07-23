@@ -41,6 +41,29 @@ class Carro {
       throw error;
     }
   }
+  async obtenerTodosLosCarros() {
+    let sql = /*sql*/ `SELECT c.id_carro AS id,
+    c.marca_carro AS marca,
+    c.modelo_carro AS modelo,
+    c.numero_puertas_carro AS numero_puertas,
+    c.color_carro AS color,
+    c.precio_hora_carro AS precio_hora,
+    c.placa_carro AS placa,
+    tc.nombre_tipo_carro AS tipo_carro,
+    s.ciudad_sede AS ciudad,
+    s.telefono_sede AS telefono,
+    s.direccion_sede AS direccion
+FROM carros c
+INNER JOIN tipo_carro tc ON c.id_tipo_carro = tc.id_tipo_carro
+INNER JOIN sedes s ON c.id_sede = s.id_sede;
+`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Carro };
