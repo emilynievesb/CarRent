@@ -23,6 +23,7 @@ import {
   agregarRolDTO,
   agregarSeguroDTO,
   agregarSoatDTO,
+  agregarTecnicomecDTO,
   agregarTipoDocumentoDTO,
   agregarUsuarioDTO,
 } from "./DTO/postDTO.js";
@@ -49,7 +50,11 @@ const postInitRoute = () => {
   );
   router.post("/agregarSoat", agregarSoatDTO, agregarSoatController);
   router.post("/agregarSeguro", agregarSeguroDTO, agregarSeguroController);
-  router.post("/agregarTecnicomec", agregarTecnicomecController);
+  router.post(
+    "/agregarTecnicomec",
+    agregarTecnicomecDTO,
+    agregarTecnicomecController
+  );
   router.post("/agregarTipoNovedad", agregarTipoNovedadController);
   router.post("/agregarTipoCarro", agregarTipoCarroController);
   router.post("/agregarSede", agregarSedeController);

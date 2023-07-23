@@ -115,10 +115,18 @@ const agregarEstadoVigenciaDTO = async (req, res, next) => {
 const agregarSoatDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      FechaInicio: date().required("La Fecha de Inicio es obligatoria"),
-      FechaVencimiento: date().required(
-        "La Fecha de Vencimiento es obligatoria"
-      ),
+      FechaInicio: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
+        )
+        .required("La fecha es requerida"),
+      FechaVencimiento: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
+        )
+        .required("La fecha es requerida"),
       IdEstado: number().required("El Id de Estado es obligatorio"),
     });
     await productSchema.validate(req.body);
@@ -131,22 +139,42 @@ const agregarSoatDTO = async (req, res, next) => {
 const agregarSeguroDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      FechaInicio: date()
-        .test(
-          "validar-fecha",
-          "La Fecha de Inicio es obligatoria",
-          (value) => value instanceof Date
+      FechaInicio: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
         )
-        .transform((value) => value.toISOString().split("T")[0])
-        .required(),
-      FechaVencimiento: date()
-        .test(
-          "validar-fecha",
-          "La Fecha de Vencimiento es obligatoria",
-          (value) => value instanceof Date
+        .required("La fecha es requerida"),
+      FechaVencimiento: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
         )
-        .transform((value) => value.toISOString().split("T")[0])
-        .required(),
+        .required("La fecha es requerida"),
+      IdEstado: number().required("El Id de Estado es obligatorio"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+const agregarTecnicomecDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      FechaInicio: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
+        )
+        .required("La fecha es requerida"),
+      FechaVencimiento: string()
+        .matches(
+          /^\d{4}-\d{2}-\d{2}$/,
+          'El formato de fecha debe ser "YYYY-MM-DD"'
+        )
+        .required("La fecha es requerida"),
       IdEstado: number().required("El Id de Estado es obligatorio"),
     });
     await productSchema.validate(req.body);
@@ -165,4 +193,5 @@ export {
   agregarEstadoVigenciaDTO,
   agregarSoatDTO,
   agregarSeguroDTO,
+  agregarTecnicomecDTO,
 };
