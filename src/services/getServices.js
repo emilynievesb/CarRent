@@ -1,6 +1,7 @@
 import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Factura } from "../entities/factura.js";
+import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 
 const getPrecioHoraById = async (id) => {
@@ -68,6 +69,16 @@ const obtenerFacturaPorId = async (idFactura) => {
   }
 };
 
+const obtenerTodosLosHistoriales = async () => {
+  const historialNovedades = new HistorialNovedades();
+  try {
+    const result = await historialNovedades.obtenerTodosLosHistoriales();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -76,4 +87,5 @@ export {
   obtenerTodosLosEstadosVigencia,
   obtenerTodasLasFacturas,
   obtenerFacturaPorId,
+  obtenerTodosLosHistoriales,
 };

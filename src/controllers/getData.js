@@ -4,6 +4,7 @@ import {
   obtenerTodasLasFacturas,
   obtenerTodosLosCarros,
   obtenerTodosLosEstadosVigencia,
+  obtenerTodosLosHistoriales,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -57,10 +58,20 @@ const obtenerFacturaPorIdController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosHistorialesController = async (req, res, next) => {
+  try {
+    const result = await obtenerTodosLosHistoriales();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
   obtenerTodosLosEstadosVigenciaController,
   obtenerTodasLasFacturasController,
   obtenerFacturaPorIdController,
+  obtenerTodosLosHistorialesController,
 };

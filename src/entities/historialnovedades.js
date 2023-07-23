@@ -29,6 +29,18 @@ class HistorialNovedades {
       throw error;
     }
   }
+
+  async obtenerTodosLosHistoriales() {
+    let sql = /*sql*/ `SELECT hn.id_historial AS id,
+    hn.acumulado_daños AS acumulado_danos
+ FROM historial_novedades hn;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { HistorialNovedades };
