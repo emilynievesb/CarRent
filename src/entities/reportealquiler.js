@@ -85,6 +85,30 @@ class ReporteAlquiler {
       throw error;
     }
   }
+  async obtenerReportePorId() {
+    let sql = /*sql*/ `SELECT ra.id_reporte_alquiler AS id,
+       u.nombre_user AS nombre_usuario,
+       c.placa_carro AS placa_carro,
+       ra.fecha_inicio_alquiler AS fecha_inicio,
+       ra.fecha_final_alquiler AS fecha_final,
+       ra.precio_cotizado_alquiler AS precio_cotizado,
+       ra.monto_fianza AS monto_fianza
+    FROM reporte_alquiler ra
+    INNER JOIN users u ON ra.id_user = u.id_user
+    INNER JOIN carros c ON ra.id_carro = c.id_carro
+    WHERE ra.id_reporte_alquiler = ${this.id_reporte_alquiler};`;
+    try {
+      const result = await executeQuery(sql);
+      if (result.data.length === 0) {
+        throw new Error(
+          "No se encontró el reporte de alquiler con el ID especificado."
+        );
+      }
+      return result.data[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { ReporteAlquiler };

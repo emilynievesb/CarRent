@@ -122,6 +122,17 @@ const obtenerTodosLosReportes = async () => {
   }
 };
 
+const obtenerReportePorId = async (idReporte) => {
+  const reportes = new ReporteAlquiler();
+  reportes.id_reporte_alquiler = idReporte;
+  try {
+    const result = await reportes.obtenerReportePorId();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -135,4 +146,5 @@ export {
   obtenerTodasLasNacionalidades,
   obtenerNovedadPorId,
   obtenerTodosLosReportes,
+  obtenerReportePorId,
 };

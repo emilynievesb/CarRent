@@ -2,6 +2,7 @@ import {
   obtenerCarroPorId,
   obtenerFacturaPorId,
   obtenerNovedadPorId,
+  obtenerReportePorId,
   obtenerTodasLasFacturas,
   obtenerTodasLasNacionalidades,
   obtenerTodasLasNovedades,
@@ -112,6 +113,23 @@ const obtenerTodosLosReportesController = async (req, res, next) => {
   }
 };
 
+const obtenerReportePorIdController = async (req, res, next) => {
+  const { idReporte } = req.query;
+  try {
+    const reporte = await obtenerReportePorId(idReporte);
+    res.status(200).json(reporte);
+  } catch (error) {
+    if (
+      error.message ===
+      "No se encontró el reporte de alquiler con el ID especificado."
+    ) {
+      res.status(404).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "Error interno del servidor." });
+    }
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -123,4 +141,5 @@ export {
   obtenerTodasLasNovedadesController,
   obtenerNovedadPorIdController,
   obtenerTodosLosReportesController,
+  obtenerReportePorIdController,
 };

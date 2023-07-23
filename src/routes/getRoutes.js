@@ -3,6 +3,7 @@ import {
   obtenerCarroPorIdController,
   obtenerFacturaPorIdController,
   obtenerNovedadPorIdController,
+  obtenerReportePorIdController,
   obtenerTodasLasFacturasController,
   obtenerTodasLasNacionalidadesController,
   obtenerTodasLasNovedadesController,
@@ -30,6 +31,7 @@ const getInitRoute = () => {
   router.get("/obtenerNovedades", obtenerTodasLasNovedadesController);
   router.get("/obtenerNovedad", obtenerNovedadPorIdController);
   router.get("/obtenerReportes", obtenerTodosLosReportesController);
+  router.get("/obtenerReporte", obtenerReportePorIdController);
   return router;
 };
 
