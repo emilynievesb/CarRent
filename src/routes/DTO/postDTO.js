@@ -238,6 +238,27 @@ const agregarSedeDTO = async (req, res, next) => {
   }
 };
 
+const agregarReporteDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      IdUsuario: number().required(),
+      IdCarro: number().required(),
+      FechaInicio: string().matches(
+        /^\d{4}-\d{2}-\d{2}$/,
+        'El formato de fecha debe ser "YYYY-MM-DD"'
+      ),
+      FechaDevolucion: string().matches(
+        /^\d{4}-\d{2}-\d{2}$/,
+        'El formato de fecha debe ser "YYYY-MM-DD"'
+      ),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
@@ -251,4 +272,5 @@ export {
   agregarTipoCarroDTO,
   agregarTipoNovedadDTO,
   agregarSedeDTO,
+  agregarReporteDTO,
 };

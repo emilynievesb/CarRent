@@ -20,6 +20,7 @@ import {
   agregarCarroDTO,
   agregarEstadoVigenciaDTO,
   agregarNacionalidadDTO,
+  agregarReporteDTO,
   agregarRolDTO,
   agregarSedeDTO,
   agregarSeguroDTO,
@@ -70,7 +71,11 @@ const postInitRoute = () => {
   );
   router.post("/agregarSede", agregarSedeDTO, agregarSedeController);
   router.post("/agregarNovedad", agregarNovedadController);
-  router.post("/agregarReporte", agregarReporteAlquilerController);
+  router.post(
+    "/agregarReporte",
+    agregarReporteDTO,
+    agregarReporteAlquilerController
+  );
   router.post("/agregarFactura", agregarFacturaController);
   return router;
 };
