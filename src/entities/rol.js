@@ -12,6 +12,16 @@ class Rol {
       throw error;
     }
   }
+
+  async obtenerTodosLosRoles() {
+    let sql = /*sql*/ `SELECT id_rol AS id, nombre_rol AS nombre FROM roles;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Rol };

@@ -5,6 +5,7 @@ import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Novedades } from "../entities/novedades.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
+import { Rol } from "../entities/rol.js";
 
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
@@ -133,6 +134,16 @@ const obtenerReportePorId = async (idReporte) => {
   }
 };
 
+const obtenerTodosLosRoles = async () => {
+  const roles = new Rol();
+  try {
+    const rolesList = await roles.obtenerTodosLosRoles();
+    return rolesList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -147,4 +158,5 @@ export {
   obtenerNovedadPorId,
   obtenerTodosLosReportes,
   obtenerReportePorId,
+  obtenerTodosLosRoles,
 };
