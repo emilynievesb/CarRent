@@ -6,6 +6,7 @@ import { Nacionalidad } from "../entities/nacionalidad.js";
 import { Novedades } from "../entities/novedades.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 import { Rol } from "../entities/rol.js";
+import { Sede } from "../entities/sede.js";
 
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
@@ -144,6 +145,16 @@ const obtenerTodosLosRoles = async () => {
   }
 };
 
+const obtenerTodasLasSedes = async () => {
+  const sedes = new Sede();
+  try {
+    const sedesList = await sedes.obtenerTodasLasSedes();
+    return sedesList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -159,4 +170,5 @@ export {
   obtenerTodosLosReportes,
   obtenerReportePorId,
   obtenerTodosLosRoles,
+  obtenerTodasLasSedes,
 };

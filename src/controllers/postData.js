@@ -190,8 +190,8 @@ const agregarTipoCarroController = async (req, res, next) => {
 
 const agregarSedeController = async (req, res, next) => {
   try {
-    const { Ciudad, Telefono, Direccion } = req.body;
-    const result = await agregarSede(Ciudad, Telefono, Direccion);
+    const { Ciudad, Telefono, Dirección } = req.body;
+    const result = await agregarSede(Ciudad, Telefono, Dirección);
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);

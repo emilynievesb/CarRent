@@ -6,6 +6,7 @@ import {
   obtenerTodasLasFacturas,
   obtenerTodasLasNacionalidades,
   obtenerTodasLasNovedades,
+  obtenerTodasLasSedes,
   obtenerTodosLosCarros,
   obtenerTodosLosEstadosVigencia,
   obtenerTodosLosHistoriales,
@@ -140,6 +141,15 @@ const obtenerTodosLosRolesController = async (req, res, next) => {
   }
 };
 
+const obtenerTodasLasSedesController = async (req, res, next) => {
+  try {
+    const sedes = await obtenerTodasLasSedes();
+    res.status(200).json(sedes);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -153,4 +163,5 @@ export {
   obtenerTodosLosReportesController,
   obtenerReportePorIdController,
   obtenerTodosLosRolesController,
+  obtenerTodasLasSedesController,
 };

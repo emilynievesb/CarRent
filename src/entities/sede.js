@@ -18,6 +18,15 @@ class Sede {
       throw error;
     }
   }
+  async obtenerTodasLasSedes() {
+    let sql = /*sql*/ `SELECT id_sede AS id, ciudad_sede AS ciudad, telefono_sede AS telefono, direccion_sede AS direccion FROM sedes;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Sede };
