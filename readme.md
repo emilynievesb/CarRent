@@ -346,3 +346,618 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
     - Datos de salida:
 
             "Sede creada correctamente"
+
+## Endpoints de obtención de data
+
+###### RECUERDA QUE LA IP DEL SERVIDOR SERÁ LA CORRESPONDIENTE EN EL ARCHIVO `.env` descrita en el `hostname`. Los valores de cada dato acontinuación son netamente ejemplos de lo que podrían contener los datos de entrada.
+
+Para poder acceder a los datos registrados en la base de datos, usaremos los siguientes endpoints:
+
+1.  Obtener todos los carros
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerCarros`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "marca": "Toyota",
+                "modelo": "Corolla",
+                "numero_puertas": 4,
+                "color": "Negro",
+                "precio_hora": 50000,
+                "placa": "ABC123",
+                "tipo_carro": "Sedán",
+                "ciudad": "Bogotá",
+                "telefono": 1234567890,
+                "direccion": "Calle 123 #45-67"
+            },
+            {
+                "id": 3,
+                "marca": "Chevrolet",
+                "modelo": "Spark",
+                "numero_puertas": 5,
+                "color": "Blanco",
+                "precio_hora": 40000,
+                "placa": "GHI789",
+                "tipo_carro": "SUV",
+                "ciudad": "Bogotá",
+                "telefono": 1234567890,
+                "direccion": "Calle 123 #45-67"
+            },
+            {
+                "id": 4,
+                "marca": "Ford",
+                "modelo": "Mustang",
+                "numero_puertas": 2,
+                "color": "Rojo",
+                "precio_hora": 70000,
+                "placa": "JKL012",
+                "tipo_carro": "SUV",
+                "ciudad": "Medellín",
+                "telefono": 2147483647,
+                "direccion": "Carrera 678 #12-34"
+            },
+        ]
+      ```
+
+1.  Obtener un carro por id
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerCarro?idCarro=2`
+    - Método: `GET`
+    - Datos de entrada (query): idCarro, recuerda reemplazar el valor de idCarro por el id del carro que realmente necesitas.
+    - Datos de salida:
+
+      ```
+          {
+              "id": 2,
+              "marca": "Honda",
+              "modelo": "Civic",
+              "numero_puertas": 4,
+              "color": "Gris",
+              "precio_hora": 45000,
+              "placa": "DEF456",
+              "tipo_carro": "Sedán",
+              "ciudad": "Medellín",
+              "telefono": 2147483647,
+              "direccion": "Carrera 678 #12-34"
+          }
+      ```
+
+1.  Obtener todos los estados de vigencia
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerEstadosVigencia`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id_estado": 1,
+                "nombre_estado": "Vigente"
+            },
+            {
+                "id_estado": 2,
+                "nombre_estado": "Vencido"
+            }
+        ]
+      ```
+
+1.  Obtener todos las facturas
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerFacturas`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "fecha_final": "2023-07-08T17:00:00.000Z",
+                "dias_extra": 0,
+                "total_pago": 350000,
+                "fecha_inicio": "2023-07-01T05:00:00.000Z",
+                "fecha_final_alquiler": "2023-07-08T05:00:00.000Z",
+                "precio_cotizado": 350000,
+                "monto_fianza": 200000,
+                "acumulado_danos": 300000,
+                "nombre_cliente": "Juan Pérez",
+                "marca_carro": "Toyota",
+                "modelo_carro": "Corolla",
+                "ciudad_sede": "Bogotá"
+            },
+            {
+                "id": 3,
+                "fecha_final": "2023-07-13T14:15:00.000Z",
+                "dias_extra": 0,
+                "total_pago": 240000,
+                "fecha_inicio": "2023-07-10T05:00:00.000Z",
+                "fecha_final_alquiler": "2023-07-13T05:00:00.000Z",
+                "precio_cotizado": 240000,
+                "monto_fianza": 150000,
+                "acumulado_danos": 300000,
+                "nombre_cliente": "Carlos González",
+                "marca_carro": "Chevrolet",
+                "modelo_carro": "Spark",
+                "ciudad_sede": "Bogotá"
+            },
+            {
+                "id": 2,
+                "fecha_final": "2023-07-09T15:30:00.000Z",
+                "dias_extra": 1,
+                "total_pago": 330000,
+                "fecha_inicio": "2023-07-05T05:00:00.000Z",
+                "fecha_final_alquiler": "2023-07-09T05:00:00.000Z",
+                "precio_cotizado": 320000,
+                "monto_fianza": 180000,
+                "acumulado_danos": 150000,
+                "nombre_cliente": "Jane Smith",
+                "marca_carro": "Honda",
+                "modelo_carro": "Civic",
+                "ciudad_sede": "Medellín"
+            }
+        ]
+      ```
+
+1.  Obtener una factura por id
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerFactura?idFactura=13`
+    - Método: `GET`
+    - Datos de entrada (query): idFactura, recuerda reemplazar el valor de idFactura por el id de la factura que realmente necesitas.
+    - Datos de salida:
+
+      ```
+          {
+              "id": 13,
+              "fecha_final": "2023-07-14T05:00:00.000Z",
+              "dias_extra": 9,
+              "total_pago": 1154167,
+              "fecha_inicio": "2023-07-20T05:00:00.000Z",
+              "fecha_final_alquiler": "2023-07-23T05:00:00.000Z",
+              "precio_cotizado": 270000,
+              "monto_fianza": 150000,
+              "acumulado_danos": 850000,
+              "nombre_cliente": "Laura Fernández",
+              "marca_carro": "Nissan",
+              "modelo_carro": "Sentra",
+              "ciudad_sede": "Cali"
+          }
+      ```
+
+1.  Obtener todos los historiales de novedades
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerHistorialesNovedades`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+              "id": 1,
+              "acumulado_danos": 300000
+            },
+            {
+              "id": 2,
+              "acumulado_danos": 150000
+            },
+            {
+              "id": 3,
+              "acumulado_danos": 300000
+            }
+        ]
+      ```
+
+1.  Obtener todas las nacionalidades
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerNacionalidades`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "nombre": "Colombia"
+            },
+            {
+                "id": 2,
+                "nombre": "Estados Unidos"
+            },
+            {
+                "id": 3,
+                "nombre": "España"
+            },
+            {
+                "id": 4,
+                "nombre": "Venezolana"
+            }
+        ]
+      ```
+
+1.  Obtener todas las novedades
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerNovedades`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "tipo": "Rasguño pequeño",
+                "descripcion": "Pequeño rasguño en la puerta izquierda.",
+                "precio": 50000
+            },
+            {
+                "id": 2,
+                "tipo": "Abolladura",
+                "descripcion": "Abolladura en la parte trasera del vehículo.",
+                "precio": 80000
+            },
+            {
+                "id": 3,
+                "tipo": "Rotura de espejo",
+                "descripcion": "Espejo lateral izquierdo roto.",
+                "precio": 100000
+            },
+        ]
+      ```
+
+1.  Obtener una novedad por id
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerNovedad?idNovedad=2`
+    - Método: `GET`
+    - Datos de entrada (query): idNovedad, recuerda reemplazar el valor de idNovedad por el id de la novedad que realmente necesitas.
+    - Datos de salida:
+
+      ```
+          {
+              "id": 2,
+              "tipo": "Abolladura",
+              "descripcion": "Abolladura en la parte trasera del vehículo.",
+              "precio": 80000
+          }
+      ```
+
+1.  Obtener todos los reportes
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerReportes`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+      [
+          {
+              "id": 1,
+              "nombre_usuario": "Juan Pérez",
+              "placa_carro": "ABC123",
+              "fecha_inicio": "2023-07-01T05:00:00.000Z",
+              "fecha_final": "2023-07-08T05:00:00.000Z",
+              "precio_cotizado": 350000,
+              "monto_fianza": 200000
+          },
+          {
+              "id": 2,
+              "nombre_usuario": "Jane Smith",
+              "placa_carro": "DEF456",
+              "fecha_inicio": "2023-07-05T05:00:00.000Z",
+              "fecha_final": "2023-07-09T05:00:00.000Z",
+              "precio_cotizado": 320000,
+              "monto_fianza": 180000
+          },
+          {
+              "id": 3,
+              "nombre_usuario": "Carlos González",
+              "placa_carro": "GHI789",
+              "fecha_inicio": "2023-07-10T05:00:00.000Z",
+              "fecha_final": "2023-07-13T05:00:00.000Z",
+              "precio_cotizado": 240000,
+              "monto_fianza": 150000
+          }
+      ]
+      ```
+
+1.  Obtener un reporte por id
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerReporte?idReporte=2`
+    - Método: `GET`
+    - Datos de entrada (query): idReporte, recuerda reemplazar el valor de idReporte por el id del reporte que realmente necesitas.
+    - Datos de salida:
+
+      ```
+          {
+              "id": 2,
+              "nombre_usuario": "Jane Smith",
+              "placa_carro": "DEF456",
+              "fecha_inicio": "2023-07-05T05:00:00.000Z",
+              "fecha_final": "2023-07-09T05:00:00.000Z",
+              "precio_cotizado": 320000,
+              "monto_fianza": 180000
+          }
+      ```
+
+1.  Obtener todos los roles
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerRoles`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "nombre": "Cliente"
+            },
+            {
+                "id": 2,
+                "nombre": "Administrador"
+            }
+        ]
+      ```
+
+1.  Obtener todas las sedes
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerSedes`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+            "id": 1,
+            "ciudad": "Bogotá",
+            "telefono": 1234567890,
+            "direccion": "Calle 123 #45-67"
+            },
+            {
+            "id": 2,
+            "ciudad": "Medellín",
+            "telefono": 2147483647,
+            "direccion": "Carrera 678 #12-34"
+            },
+            {
+            "id": 3,
+            "ciudad": "Cali",
+            "telefono": 2147483647,
+            "direccion": "Avenida 987 #56-78"
+            }
+        ]
+      ```
+
+1.  Obtener todos los seguros
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerSeguros`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+      [
+          {
+              "id": 1,
+              "fecha_inicio": "2023-01-01T05:00:00.000Z",
+              "fecha_vencimiento": "2024-01-01T05:00:00.000Z",
+              "estado": "Vigente"
+          },
+          {
+              "id": 2,
+              "fecha_inicio": "2023-02-15T05:00:00.000Z",
+              "fecha_vencimiento": "2024-02-15T05:00:00.000Z",
+              "estado": "Vigente"
+          }
+      ]
+      ```
+
+1.  Obtener todos los soat
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerSoats`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+          ```
+
+              [
+                {
+                    "id": 1,
+                    "fecha_inicio": "2023-01-01T05:00:00.000Z",
+                    "fecha_vencimiento": "2024-01-01T05:00:00.000Z",
+                    "estado": "Vigente"
+                },
+                {
+                    "id": 2,
+                    "fecha_inicio": "2023-02-15T05:00:00.000Z",
+                    "fecha_vencimiento": "2024-02-15T05:00:00.000Z",
+                    "estado": "Vigente"
+                }
+              ]
+              ```
+
+1.  Obtener todas las tecnicomecanicas
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerTecnicomec`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+      [
+          {
+              "id": 1,
+              "fecha_inicio": "2023-01-01T05:00:00.000Z",
+              "fecha_vencimiento": "2024-01-01T05:00:00.000Z",
+              "estado": "Vigente"
+          },
+          {
+              "id": 2,
+              "fecha_inicio": "2023-02-15T05:00:00.000Z",
+              "fecha_vencimiento": "2024-02-15T05:00:00.000Z",
+              "estado": "Vigente"
+          }
+      ]
+      ```
+
+1.  Obtener todos los tipos de carro
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerRoles`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "nombre": "Sedán"
+            },
+            {
+                "id": 2,
+                "nombre": "SUV"
+            },
+            {
+                "id": 3,
+                "nombre": "Camioneta"
+            },
+            {
+                "id": 4,
+                "nombre": "Deportivo"
+            }
+        ]
+      ```
+
+1.  Obtener todos los tipos de documento
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerTiposDoc`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "nombre": "Cédula de ciudadanía"
+            },
+            {
+                "id": 2,
+                "nombre": "Pasaporte"
+            },
+            {
+                "id": 3,
+                "nombre": "Cédula de extranjería"
+            }
+        ]
+      ```
+
+1.  Obtener todos los tipos de novedad
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerTiposNovedad`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "nombre": "Rasguño pequeño",
+                "precio": 50000
+            },
+            {
+                "id": 2,
+                "nombre": "Abolladura",
+                "precio": 80000
+            },
+            {
+                "id": 3,
+                "nombre": "Rotura de espejo",
+                "precio": 100000
+            },
+            {
+                "id": 4,
+                "nombre": "Daño en llanta",
+                "precio": 60000
+            }
+        ]
+      ```
+
+1.  Obtener todos los usuarios
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerUsuarios`
+    - Método: `GET`
+    - Datos de entrada (query): Ninguno.
+    - Datos de salida:
+
+      ```
+        [
+            {
+                "id": 1,
+                "documento": 12345678,
+                "tipo_documento": "Cédula de ciudadanía",
+                "nombre": "Juan Pérez",
+                "correo": "juan@example.com",
+                "direccion": "Calle 123 #45-67",
+                "telefono": 2147483647,
+                "nacionalidad": "Colombia",
+                "nickname": "juan123",
+                "rol": "Cliente"
+            },
+            {
+                "id": 2,
+                "documento": 98765432,
+                "tipo_documento": "Pasaporte",
+                "nombre": "Jane Smith",
+                "correo": "jane@example.com",
+                "direccion": "Avenue 456 #78-90",
+                "telefono": 2147483647,
+                "nacionalidad": "Estados Unidos",
+                "nickname": "jane456",
+                "rol": "Cliente"
+            },
+            {
+                "id": 3,
+                "documento": 87654321,
+                "tipo_documento": "Cédula de ciudadanía",
+                "nombre": "Carlos González",
+                "correo": "carlos@example.com",
+                "direccion": "Carrera 789 #12-34",
+                "telefono": 2008765432,
+                "nacionalidad": "Colombia",
+                "nickname": "carlos77",
+                "rol": "Cliente"
+            }
+        ]
+      ```
+
+1.  Obtener un usuario por id
+
+    - URL: `http://127.20.30.1:5005/api/get/obtenerUsuario?idUsuario=8`
+    - Método: `GET`
+    - Datos de entrada (query): idUsuario, recuerda reemplazar el valor de idUsuario por el id del usuario que realmente necesitas.
+    - Datos de salida:
+
+      ```
+        {
+            "id": 8,
+            "documento": 1000000,
+            "tipo_documento": "Cédula de ciudadanía",
+            "nombre": "Emily Nieves",
+            "correo": "emily@hotmail.com",
+            "direccion": "Calle 100",
+            "telefono": 31111111,
+            "nacionalidad": "Estados Unidos",
+            "nickname": "emilynievesb",
+            "rol": "Cliente"
+        }
+      ```
