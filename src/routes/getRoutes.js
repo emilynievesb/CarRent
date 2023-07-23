@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   obtenerCarroPorIdController,
+  obtenerFacturaPorIdController,
   obtenerTodasLasFacturasController,
   obtenerTodosLosCarrosController,
   obtenerTodosLosEstadosVigenciaController,
@@ -15,6 +16,7 @@ const getInitRoute = () => {
     obtenerTodosLosEstadosVigenciaController
   );
   router.get("/obtenerFacturas", obtenerTodasLasFacturasController);
+  router.get("/obtenerFactura", obtenerFacturaPorIdController);
   return router;
 };
 

@@ -57,6 +57,17 @@ const obtenerTodasLasFacturas = async () => {
   }
 };
 
+const obtenerFacturaPorId = async (idFactura) => {
+  const factura = new Factura();
+  factura.idFactura = idFactura;
+  try {
+    const facturaPorId = await factura.obtenerFacturaPorId();
+    return facturaPorId;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -64,4 +75,5 @@ export {
   obtenerCarroPorId,
   obtenerTodosLosEstadosVigencia,
   obtenerTodasLasFacturas,
+  obtenerFacturaPorId,
 };
