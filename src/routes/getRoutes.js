@@ -22,7 +22,7 @@ import {
   obtenerTodosLosUsuariosController,
   obtenerUsuarioPorIdController,
 } from "../controllers/getData.js";
-import { obtenerCarroPorIdDTO } from "./DTO/getDTO.js";
+import { obtenerCarroPorIdDTO, obtenerNovedadPorIdDTO } from "./DTO/getDTO.js";
 
 const getInitRoute = () => {
   const router = Router();
@@ -44,7 +44,11 @@ const getInitRoute = () => {
   );
   router.get("/obtenerNacionalidades", obtenerTodasLasNacionalidadesController);
   router.get("/obtenerNovedades", obtenerTodasLasNovedadesController);
-  router.get("/obtenerNovedad", obtenerNovedadPorIdController);
+  router.get(
+    "/obtenerNovedad",
+    obtenerNovedadPorIdDTO,
+    obtenerNovedadPorIdController
+  );
   router.get("/obtenerReportes", obtenerTodosLosReportesController);
   router.get("/obtenerReporte", obtenerReportePorIdController);
   router.get("/obtenerRoles", obtenerTodosLosRolesController);

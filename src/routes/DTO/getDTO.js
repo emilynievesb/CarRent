@@ -12,4 +12,16 @@ const obtenerCarroPorIdDTO = async (req, res, next) => {
   }
 };
 
-export { obtenerCarroPorIdDTO };
+const obtenerNovedadPorIdDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      idNovedad: number().required(),
+    });
+    await productSchema.validate(req.query);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export { obtenerCarroPorIdDTO, obtenerNovedadPorIdDTO };
