@@ -1,6 +1,7 @@
 import executeQuery from "../utils/db.js";
 
 class ReporteAlquiler {
+  id_reporte_alquiler;
   id_user;
   id_carro;
   fecha_inicio_alquiler;
@@ -27,6 +28,22 @@ class ReporteAlquiler {
 
   calcularFianza() {
     return this.precio_cotizado_alquiler * 0.2;
+  }
+
+  async datosParaFacturaAlquilerById() {
+    let sql = /*sql*/ `SELECT r.fecha_final_alquiler AS fecha_final_inicial,
+    r.precio_cotizado_alquiler,
+    r.monto_fianza,
+    h.acumulado_daños
+    FROM reporte_alquiler r
+    INNER JOIN historial_novedades h ON r.id_historial_novedades = h.id_historial
+    WHERE id_reporte_alquiler = ${this.id_reporte_alquiler}`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async disponibilidadCarroById() {

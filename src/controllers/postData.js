@@ -219,16 +219,11 @@ const agregarReporteAlquilerController = async (req, res, next) => {
 
 const agregarFacturaController = async (req, res, next) => {
   try {
-    const { IdReporte, FechaEntregaCarro, DiasExtra, TotalPago } = req.body;
-    const result = await agregarFactura(
-      IdReporte,
-      FechaEntregaCarro,
-      DiasExtra,
-      TotalPago
-    );
+    const { IdReporte, FechaEntregaCarro } = req.body;
+    const result = await agregarFactura(IdReporte, FechaEntregaCarro);
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 

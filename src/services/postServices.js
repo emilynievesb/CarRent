@@ -14,7 +14,10 @@ import { TipoCarro } from "../entities/tipocarro.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
 import { TipoNovedad } from "../entities/tiponovedad.js";
 import { User } from "../entities/user.js";
-import { getPrecioHoraById } from "./getServices.js";
+import {
+  datosParaFacturaAlquilerById,
+  getPrecioHoraById,
+} from "./getServices.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -236,30 +239,43 @@ const agregarReporteAlquiler = async (
   reporte.horas_alquiler = reporte.calcularHoras();
   //2. Calculo del precio de las horas
   reporte.precio_hora_carro = await getPrecioHoraById(id_carro);
-
+  //3. Calculo del precio de cotización basado en las horas
   reporte.precio_cotizado_alquiler = reporte.calcularCotizacion();
-  //3. Calculo fianza
+  //4. Calculo fianza
   reporte.monto_fianza = reporte.calcularFianza();
   const query = await reporte.agregarReporteAlquiler();
   if (query.affectedRows === 1) {
-    return "Reporte de alquiler creado correctamente";
+    return `Reporte de alquiler creado correctamente, con historial de novedades ${reporte.id_historial_novedades}, para que pueda reportar cualquier novedad llegado el caso`;
   }
 };
 
-const agregarFactura = async (
-  id_reporte_alquiler,
-  fecha_final_real,
-  dias_extra,
-  total_pago_alquiler
-) => {
+const agregarFactura = async (id_reporte_alquiler, fecha_final_real) => {
   const factura = new Factura();
   factura.id_reporte_alquiler = id_reporte_alquiler;
+  const validacion = await factura.validacionFacturacionRepetida();
+  if (validacion[0].count !== 0) {
+    throw new Error("Ya existe una factura para este alquiler");
+  }
   factura.fecha_final_real = fecha_final_real;
-  factura.dias_extra = dias_extra;
-  factura.total_pago_alquiler = total_pago_alquiler;
+  //Se traen los datos necesarios para facturar, desde el reporte del alquiler
+  const dataReporte = await datosParaFacturaAlquilerById(id_reporte_alquiler);
+  const {
+    fecha_final_inicial,
+    precio_cotizado_alquiler,
+    monto_fianza,
+    acumulado_daños,
+  } = dataReporte[0];
+  factura.fecha_final_inicial = fecha_final_inicial;
+  factura.dias_extra = factura.diasExtra();
+  factura.total_pago_novedades = acumulado_daños;
+  factura.monto_fianza = monto_fianza;
+  factura.precio_cotizado = precio_cotizado_alquiler;
+  factura.total_pago_alquiler = factura.precioTotalFactura();
   const query = await factura.agregarFactura();
   if (query.affectedRows === 1) {
-    return "Factura creada correctamente";
+    return `Factura creada correctamente por valor $${Math.trunc(
+      factura.total_pago_alquiler
+    ).toLocaleString()}`;
   }
 };
 
