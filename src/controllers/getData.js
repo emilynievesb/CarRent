@@ -8,6 +8,7 @@ import {
   obtenerTodosLosCarros,
   obtenerTodosLosEstadosVigencia,
   obtenerTodosLosHistoriales,
+  obtenerTodosLosReportes,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -102,6 +103,15 @@ const obtenerNovedadPorIdController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosReportesController = async (req, res, next) => {
+  try {
+    const reportes = await obtenerTodosLosReportes();
+    res.status(200).json(reportes);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -112,4 +122,5 @@ export {
   obtenerTodasLasNacionalidadesController,
   obtenerTodasLasNovedadesController,
   obtenerNovedadPorIdController,
+  obtenerTodosLosReportesController,
 };

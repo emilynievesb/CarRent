@@ -9,6 +9,7 @@ import {
   obtenerTodosLosCarrosController,
   obtenerTodosLosEstadosVigenciaController,
   obtenerTodosLosHistorialesController,
+  obtenerTodosLosReportesController,
 } from "../controllers/getData.js";
 
 const getInitRoute = () => {
@@ -28,6 +29,7 @@ const getInitRoute = () => {
   router.get("/obtenerNacionalidades", obtenerTodasLasNacionalidadesController);
   router.get("/obtenerNovedades", obtenerTodasLasNovedadesController);
   router.get("/obtenerNovedad", obtenerNovedadPorIdController);
+  router.get("/obtenerReportes", obtenerTodosLosReportesController);
   return router;
 };
 
