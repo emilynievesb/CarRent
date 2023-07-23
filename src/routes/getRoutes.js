@@ -24,6 +24,7 @@ import {
 } from "../controllers/getData.js";
 import {
   obtenerCarroPorIdDTO,
+  obtenerFacturaPorIdDTO,
   obtenerNovedadPorIdDTO,
   obtenerReportePorIdDTO,
 } from "./DTO/getDTO.js";
@@ -41,7 +42,11 @@ const getInitRoute = () => {
     obtenerTodosLosEstadosVigenciaController
   );
   router.get("/obtenerFacturas", obtenerTodasLasFacturasController);
-  router.get("/obtenerFactura", obtenerFacturaPorIdController);
+  router.get(
+    "/obtenerFactura",
+    obtenerFacturaPorIdDTO,
+    obtenerFacturaPorIdController
+  );
   router.get(
     "/obtenerHistorialesNovedades",
     obtenerTodosLosHistorialesController
