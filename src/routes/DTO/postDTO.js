@@ -219,6 +219,25 @@ const agregarTipoNovedadDTO = async (req, res, next) => {
   }
 };
 
+const agregarSedeDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      Ciudad: string()
+        .matches(
+          /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/,
+          "Solo se permiten letras y espacios"
+        )
+        .required("La Ciudad es obligatoria"),
+      Telefono: number().required("El Teléfono es obligatorio"),
+      Dirección: string().required("La Dirección es obligatoria"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
@@ -231,4 +250,5 @@ export {
   agregarTecnicomecDTO,
   agregarTipoCarroDTO,
   agregarTipoNovedadDTO,
+  agregarSedeDTO,
 };
