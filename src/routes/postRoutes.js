@@ -19,6 +19,7 @@ import {
 import {
   agregarCarroDTO,
   agregarEstadoVigenciaDTO,
+  agregarFacturaDTO,
   agregarNacionalidadDTO,
   agregarNovedadDTO,
   agregarReporteDTO,
@@ -77,7 +78,7 @@ const postInitRoute = () => {
     agregarReporteDTO,
     agregarReporteAlquilerController
   );
-  router.post("/agregarFactura", agregarFacturaController);
+  router.post("/agregarFactura", agregarFacturaDTO, agregarFacturaController);
   return router;
 };
 

@@ -270,6 +270,9 @@ const agregarFactura = async (id_reporte_alquiler, fecha_final_real) => {
   factura.fecha_final_real = fecha_final_real;
   //Se traen los datos necesarios para facturar, desde el reporte del alquiler
   const dataReporte = await datosParaFacturaAlquilerById(id_reporte_alquiler);
+  if (dataReporte.length === 0) {
+    throw new Error("No existe ese id de reporte");
+  }
   const {
     fecha_final_inicial,
     precio_cotizado_alquiler,

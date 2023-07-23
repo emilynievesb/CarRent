@@ -246,13 +246,7 @@ const agregarFacturaController = async (req, res, next) => {
     const result = await agregarFactura(IdReporte, FechaEntregaCarro);
     res.status(200).json(result);
   } catch (error) {
-    if (error.error.sqlState === "23000") {
-      res
-        .status(500)
-        .json("Se ha ingresado un valor no existente en alguno de los campos");
-    } else {
-      res.status(500).json(error.message);
-    }
+    res.status(500).json(error.message);
   }
 };
 
