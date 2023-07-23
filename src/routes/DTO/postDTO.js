@@ -5,13 +5,13 @@ const agregarCarroDTO = async (req, res, next) => {
     const productSchema = object({
       Marca: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/)
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
         .required(),
       Modelo: string().strict().required(),
       NumeroPuertas: number().strict().required(),
       Color: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/)
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
         .required(),
       Precioxhora: number().strict().required(),
       Placa: string().required(),
@@ -33,7 +33,7 @@ const agregarRolDTO = async (req, res, next) => {
     const productSchema = object({
       Rol: string()
         .strict()
-        .matches(/^[a-z A-Z]+$/)
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
         .required(),
     });
     await productSchema.validate(req.body);
@@ -43,4 +43,19 @@ const agregarRolDTO = async (req, res, next) => {
   }
 };
 
-export { agregarCarroDTO, agregarRolDTO };
+const agregarTipoDocumentoDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      TipoDocumento: string()
+        .strict()
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
+        .required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export { agregarCarroDTO, agregarRolDTO, agregarTipoDocumentoDTO };
