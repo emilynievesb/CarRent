@@ -1,4 +1,5 @@
 import { Carro } from "../entities/carro.js";
+import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 
 const getPrecioHoraById = async (id) => {
@@ -35,9 +36,20 @@ const obtenerCarroPorId = async (idCarro) => {
   }
 };
 
+const obtenerTodosLosEstadosVigencia = async () => {
+  const estadoVigencia = new EstadoVigencia();
+  try {
+    const result = await estadoVigencia.obtenerTodosLosEstadosVigencia();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
   obtenerTodosLosCarros,
   obtenerCarroPorId,
+  obtenerTodosLosEstadosVigencia,
 };

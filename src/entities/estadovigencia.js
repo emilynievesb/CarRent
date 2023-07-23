@@ -15,6 +15,16 @@ class EstadoVigencia {
       throw error;
     }
   }
+
+  async obtenerTodosLosEstadosVigencia() {
+    let sql = /*sql*/ `SELECT * FROM estado_vigencia;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { EstadoVigencia };
