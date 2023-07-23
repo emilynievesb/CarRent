@@ -184,6 +184,23 @@ const agregarTecnicomecDTO = async (req, res, next) => {
   }
 };
 
+const agregarTipoCarroDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      Nombre: string()
+        .matches(
+          /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/,
+          "Solo se permiten letras y espacios"
+        )
+        .required("El Nombre del Tipo de Carro es obligatorio"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
@@ -194,4 +211,5 @@ export {
   agregarSoatDTO,
   agregarSeguroDTO,
   agregarTecnicomecDTO,
+  agregarTipoCarroDTO,
 };
