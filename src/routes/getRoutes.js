@@ -27,6 +27,7 @@ import {
   obtenerFacturaPorIdDTO,
   obtenerNovedadPorIdDTO,
   obtenerReportePorIdDTO,
+  obtenerUsuarioPorIdDTO,
 } from "./DTO/getDTO.js";
 
 const getInitRoute = () => {
@@ -73,7 +74,11 @@ const getInitRoute = () => {
   router.get("/obtenerTiposDoc", obtenerTodosLosTiposDocumentoController);
   router.get("/obtenerTiposNovedad", obtenerTodosLosTiposNovedadController);
   router.get("/obtenerUsuarios", obtenerTodosLosUsuariosController);
-  router.get("/obtenerUsuario", obtenerUsuarioPorIdController);
+  router.get(
+    "/obtenerUsuario",
+    obtenerUsuarioPorIdDTO,
+    obtenerUsuarioPorIdController
+  );
   return router;
 };
 

@@ -1,9 +1,9 @@
-import { number, string, date, object } from "yup";
+import { number, object } from "yup";
 
 const obtenerCarroPorIdDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      idCarro: number().required(),
+      idCarro: number().positive().required(),
     });
     await productSchema.validate(req.query);
     next();
@@ -15,7 +15,7 @@ const obtenerCarroPorIdDTO = async (req, res, next) => {
 const obtenerNovedadPorIdDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      idNovedad: number().required(),
+      idNovedad: number().positive().required(),
     });
     await productSchema.validate(req.query);
     next();
@@ -27,7 +27,7 @@ const obtenerNovedadPorIdDTO = async (req, res, next) => {
 const obtenerReportePorIdDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      idReporte: number().required(),
+      idReporte: number().positive().required(),
     });
     await productSchema.validate(req.query);
     next();
@@ -39,7 +39,19 @@ const obtenerReportePorIdDTO = async (req, res, next) => {
 const obtenerFacturaPorIdDTO = async (req, res, next) => {
   try {
     const productSchema = object({
-      idFactura: number().required(),
+      idFactura: number().positive().required(),
+    });
+    await productSchema.validate(req.query);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+const obtenerUsuarioPorIdDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      idUsuario: number().positive().required(),
     });
     await productSchema.validate(req.query);
     next();
@@ -53,4 +65,5 @@ export {
   obtenerNovedadPorIdDTO,
   obtenerReportePorIdDTO,
   obtenerFacturaPorIdDTO,
+  obtenerUsuarioPorIdDTO,
 };
