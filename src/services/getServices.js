@@ -8,6 +8,7 @@ import { ReporteAlquiler } from "../entities/reportealquiler.js";
 import { Rol } from "../entities/rol.js";
 import { Sede } from "../entities/sede.js";
 import { Seguro } from "../entities/seguro.js";
+import { Soat } from "../entities/soat.js";
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
   carro.idCarro = id;
@@ -164,6 +165,16 @@ const obtenerTodosLosSeguros = async () => {
   }
 };
 
+const obtenerTodosLosSoat = async () => {
+  const soat = new Soat();
+  try {
+    const soatList = await soat.obtenerTodosLosSoat();
+    return soatList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -181,4 +192,5 @@ export {
   obtenerTodosLosRoles,
   obtenerTodasLasSedes,
   obtenerTodosLosSeguros,
+  obtenerTodosLosSoat,
 };

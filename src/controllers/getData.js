@@ -13,6 +13,7 @@ import {
   obtenerTodosLosReportes,
   obtenerTodosLosRoles,
   obtenerTodosLosSeguros,
+  obtenerTodosLosSoat,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -160,6 +161,15 @@ const obtenerTodosLosSegurosController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosSoatController = async (req, res, next) => {
+  try {
+    const soatList = await obtenerTodosLosSoat();
+    res.status(200).json(soatList);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -175,4 +185,5 @@ export {
   obtenerTodosLosRolesController,
   obtenerTodasLasSedesController,
   obtenerTodosLosSegurosController,
+  obtenerTodosLosSoatController,
 };
