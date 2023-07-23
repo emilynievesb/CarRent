@@ -45,6 +45,25 @@ class Novedades {
       throw error;
     }
   }
+
+  async obtenerNovedadPorId() {
+    let sql = /*sql*/ `SELECT n.id_novedad AS id,
+       t.nombre_tipo_novedad AS tipo,
+       n.descripcion_novedad AS descripcion,
+       t.precio_tipo_novedad AS precio
+    FROM novedades n
+    INNER JOIN tipo_novedad t ON n.id_tipo_novedad = t.id_tipo_novedad
+    WHERE n.id_novedad = ${this.id_novedad};`;
+    try {
+      const result = await executeQuery(sql);
+      if (result.data.length === 0) {
+        throw new Error("No se encontró la novedad con el ID especificado.");
+      }
+      return result.data[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Novedades };

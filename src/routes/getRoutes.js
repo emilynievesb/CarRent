@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   obtenerCarroPorIdController,
   obtenerFacturaPorIdController,
+  obtenerNovedadPorIdController,
   obtenerTodasLasFacturasController,
   obtenerTodasLasNacionalidadesController,
   obtenerTodasLasNovedadesController,
@@ -26,6 +27,7 @@ const getInitRoute = () => {
   );
   router.get("/obtenerNacionalidades", obtenerTodasLasNacionalidadesController);
   router.get("/obtenerNovedades", obtenerTodasLasNovedadesController);
+  router.get("/obtenerNovedad", obtenerNovedadPorIdController);
   return router;
 };
 

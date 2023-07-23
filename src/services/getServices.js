@@ -101,6 +101,17 @@ const obtenerTodasLasNovedades = async () => {
   }
 };
 
+const obtenerNovedadPorId = async (idNovedad) => {
+  const novedades = new Novedades();
+  novedades.id_novedad = idNovedad;
+  try {
+    const novedad = await novedades.obtenerNovedadPorId();
+    return novedad;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -112,4 +123,5 @@ export {
   obtenerTodosLosHistoriales,
   obtenerTodasLasNovedades,
   obtenerTodasLasNacionalidades,
+  obtenerNovedadPorId,
 };

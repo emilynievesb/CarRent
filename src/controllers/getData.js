@@ -1,6 +1,7 @@
 import {
   obtenerCarroPorId,
   obtenerFacturaPorId,
+  obtenerNovedadPorId,
   obtenerTodasLasFacturas,
   obtenerTodasLasNacionalidades,
   obtenerTodasLasNovedades,
@@ -87,6 +88,20 @@ const obtenerTodasLasNovedadesController = async (req, res, next) => {
   }
 };
 
+const obtenerNovedadPorIdController = async (req, res, next) => {
+  const { idNovedad } = req.query;
+  try {
+    const result = await obtenerNovedadPorId(idNovedad);
+    res.status(200).json(result);
+  } catch (error) {
+    if (error.message === "No se encontró la novedad con el ID especificado.") {
+      res.status(404).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "Error interno del servidor." });
+    }
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -96,4 +111,5 @@ export {
   obtenerTodosLosHistorialesController,
   obtenerTodasLasNacionalidadesController,
   obtenerTodasLasNovedadesController,
+  obtenerNovedadPorIdController,
 };
