@@ -7,7 +7,7 @@ import { Novedades } from "../entities/novedades.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 import { Rol } from "../entities/rol.js";
 import { Sede } from "../entities/sede.js";
-
+import { Seguro } from "../entities/seguro.js";
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
   carro.idCarro = id;
@@ -154,6 +154,15 @@ const obtenerTodasLasSedes = async () => {
     throw error;
   }
 };
+const obtenerTodosLosSeguros = async () => {
+  const seguros = new Seguro();
+  try {
+    const segurosList = await seguros.obtenerTodosLosSeguros();
+    return segurosList;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export {
   getPrecioHoraById,
@@ -171,4 +180,5 @@ export {
   obtenerReportePorId,
   obtenerTodosLosRoles,
   obtenerTodasLasSedes,
+  obtenerTodosLosSeguros,
 };

@@ -13,6 +13,7 @@ import {
   obtenerTodosLosHistorialesController,
   obtenerTodosLosReportesController,
   obtenerTodosLosRolesController,
+  obtenerTodosLosSegurosController,
 } from "../controllers/getData.js";
 
 const getInitRoute = () => {
@@ -36,6 +37,7 @@ const getInitRoute = () => {
   router.get("/obtenerReporte", obtenerReportePorIdController);
   router.get("/obtenerRoles", obtenerTodosLosRolesController);
   router.get("/obtenerSedes", obtenerTodasLasSedesController);
+  router.get("/obtenerSeguros", obtenerTodosLosSegurosController);
   return router;
 };
 

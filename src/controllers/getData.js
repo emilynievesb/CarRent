@@ -12,6 +12,7 @@ import {
   obtenerTodosLosHistoriales,
   obtenerTodosLosReportes,
   obtenerTodosLosRoles,
+  obtenerTodosLosSeguros,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -150,6 +151,15 @@ const obtenerTodasLasSedesController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosSegurosController = async (req, res, next) => {
+  try {
+    const seguros = await obtenerTodosLosSeguros();
+    res.status(200).json(seguros);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -164,4 +174,5 @@ export {
   obtenerReportePorIdController,
   obtenerTodosLosRolesController,
   obtenerTodasLasSedesController,
+  obtenerTodosLosSegurosController,
 };
