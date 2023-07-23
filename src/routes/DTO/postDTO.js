@@ -112,6 +112,22 @@ const agregarEstadoVigenciaDTO = async (req, res, next) => {
   }
 };
 
+const agregarSoatDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      FechaInicio: date().required("La Fecha de Inicio es obligatoria"),
+      FechaVencimiento: date().required(
+        "La Fecha de Vencimiento es obligatoria"
+      ),
+      IdEstado: number().required("El Id de Estado es obligatorio"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
@@ -119,4 +135,6 @@ export {
   agregarNacionalidadDTO,
   agregarUsuarioDTO,
   agregarEstadoVigenciaDTO,
+  agregarSoatDTO,
+  agregarSeguroDTO,
 };
