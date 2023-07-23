@@ -28,4 +28,19 @@ const agregarCarroDTO = async (req, res, next) => {
   }
 };
 
-export { agregarCarroDTO };
+const agregarRolDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      Rol: string()
+        .strict()
+        .matches(/^[a-z A-Z]+$/)
+        .required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export { agregarCarroDTO, agregarRolDTO };
