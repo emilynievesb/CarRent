@@ -12,6 +12,7 @@ class Carro {
   id_tecnicomec;
   id_tipo_carro;
   id_sede;
+  idCarro;
   constructor() {}
   async agregarCarro() {
     let sql = /*sql*/ `INSERT INTO carros (marca_carro, modelo_carro,
@@ -24,6 +25,18 @@ class Carro {
     try {
       const result = await executeQuery(sql);
       return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getPrecioHoraById() {
+    let sql = /*sql*/ `SELECT precio_hora_carro FROM carros WHERE id_carro = ${this.idCarro};`;
+    try {
+      const result = await executeQuery(sql);
+      if (result.data.length === 0) {
+        throw new Error("No se encontró el carro con el id especificado.");
+      }
+      return result.data[0].precio_hora_carro;
     } catch (error) {
       throw error;
     }

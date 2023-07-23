@@ -14,6 +14,7 @@ import { TipoCarro } from "../entities/tipocarro.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
 import { TipoNovedad } from "../entities/tiponovedad.js";
 import { User } from "../entities/user.js";
+import { getPrecioHoraById } from "./getServices.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -206,7 +207,7 @@ const agregarHistorialNovedades = async (acumulado_daños) => {
   historial.acumulado_daños = acumulado_daños;
   const query = await historial.agregarHistorialNovedades();
   if (query.affectedRows === 1) {
-    return "Historial creado correctamente";
+    return query.insertId;
   }
 };
 
@@ -214,19 +215,31 @@ const agregarReporteAlquiler = async (
   id_user,
   id_carro,
   fecha_inicio_alquiler,
-  fecha_final_alquiler,
-  precio_cotizado_alquiler,
-  monto_fianza,
-  id_historial_novedades
+  fecha_final_alquiler
 ) => {
+  //Creación del historial en $0 necesario para el alquiler
+  const id_historial_novedades = await agregarHistorialNovedades(0);
   const reporte = new ReporteAlquiler();
   reporte.id_user = id_user;
   reporte.id_carro = id_carro;
   reporte.fecha_inicio_alquiler = fecha_inicio_alquiler;
   reporte.fecha_final_alquiler = fecha_final_alquiler;
-  reporte.precio_cotizado_alquiler = precio_cotizado_alquiler;
-  reporte.monto_fianza = monto_fianza;
+  //Llamado de verificación de disponibilidad
+  const disponibilidad = await reporte.disponibilidadCarroById();
+  if (disponibilidad[0].count !== 0) {
+    throw new Error(
+      "El carro no está disponible para esa fecha, por favor seleccione otro"
+    );
+  }
   reporte.id_historial_novedades = id_historial_novedades;
+  //1. Calculo de horas en las que el carro estará alquilado
+  reporte.horas_alquiler = reporte.calcularHoras();
+  //2. Calculo del precio de las horas
+  reporte.precio_hora_carro = await getPrecioHoraById(id_carro);
+
+  reporte.precio_cotizado_alquiler = reporte.calcularCotizacion();
+  //3. Calculo fianza
+  reporte.monto_fianza = reporte.calcularFianza();
   const query = await reporte.agregarReporteAlquiler();
   if (query.affectedRows === 1) {
     return "Reporte de alquiler creado correctamente";

@@ -201,39 +201,19 @@ const agregarNovedadController = async (req, res, next) => {
   }
 };
 
-const agregarHistorialNovedadesController = async (req, res, next) => {
-  try {
-    const { AcumuladoDaños } = req.body;
-    const result = await agregarHistorialNovedades(AcumuladoDaños);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 const agregarReporteAlquilerController = async (req, res, next) => {
   try {
-    const {
-      IdUsuario,
-      IdCarro,
-      FechaInicio,
-      FechaDevolucion,
-      PrecioCotizado,
-      Fianza,
-      IdHistorial,
-    } = req.body;
+    const { IdUsuario, IdCarro, FechaInicio, FechaDevolucion } = req.body;
+
     const result = await agregarReporteAlquiler(
       IdUsuario,
       IdCarro,
       FechaInicio,
-      FechaDevolucion,
-      PrecioCotizado,
-      Fianza,
-      IdHistorial
+      FechaDevolucion
     );
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
@@ -266,7 +246,6 @@ export {
   agregarTipoCarroController,
   agregarSedeController,
   agregarNovedadController,
-  agregarHistorialNovedadesController,
   agregarReporteAlquilerController,
   agregarFacturaController,
 };
