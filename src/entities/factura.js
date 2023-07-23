@@ -53,6 +53,34 @@ class Factura {
       throw error;
     }
   }
+
+  async obtenerTodasLasFacturas() {
+    let sql = /*sql*/ `SELECT f.id_factura AS id,
+       f.fecha_final_real AS fecha_final,
+       f.dias_extra AS dias_extra,
+       f.total_pago_alquiler AS total_pago,
+       ra.fecha_inicio_alquiler AS fecha_inicio,
+       ra.fecha_final_alquiler AS fecha_final_alquiler,
+       ra.precio_cotizado_alquiler AS precio_cotizado,
+       ra.monto_fianza AS monto_fianza,
+       h.acumulado_daños AS acumulado_danos,
+       u.nombre_user AS nombre_cliente,
+       c.marca_carro AS marca_carro,
+       c.modelo_carro AS modelo_carro,
+       s.ciudad_sede AS ciudad_sede
+    FROM factura f
+    INNER JOIN reporte_alquiler ra ON f.id_reporte_alquiler = ra.id_reporte_alquiler
+    INNER JOIN historial_novedades h ON ra.id_historial_novedades = h.id_historial
+    INNER JOIN users u ON ra.id_user = u.id_user
+    INNER JOIN carros c ON ra.id_carro = c.id_carro
+    INNER JOIN sedes s ON c.id_sede = s.id_sede;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Factura };
