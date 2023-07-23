@@ -15,6 +15,17 @@ class TipoDocumento {
       throw error;
     }
   }
+
+  async obtenerTodosLosTiposDocumento() {
+    let sql = /*sql*/ `SELECT td.id_tipo_doc AS id, td.nombre_tipo_documento AS nombre
+    FROM tipo_documento AS td;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { TipoDocumento };

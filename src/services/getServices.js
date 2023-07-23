@@ -11,6 +11,7 @@ import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
 import { Tecnicomec } from "../entities/tecnicomec.js";
 import { TipoCarro } from "../entities/tipocarro.js";
+import { TipoDocumento } from "../entities/tipodocumento.js";
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
   carro.idCarro = id;
@@ -197,6 +198,17 @@ const obtenerTodosLosTiposCarro = async () => {
   }
 };
 
+const obtenerTodosLosTiposDocumento = async () => {
+  const tipoDocumento = new TipoDocumento();
+  try {
+    const tipoDocumentoList =
+      await tipoDocumento.obtenerTodosLosTiposDocumento();
+    return tipoDocumentoList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -217,4 +229,5 @@ export {
   obtenerTodosLosSoat,
   obtenerTodosLosTecnicomec,
   obtenerTodosLosTiposCarro,
+  obtenerTodosLosTiposDocumento,
 };
