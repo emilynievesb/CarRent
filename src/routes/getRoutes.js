@@ -18,6 +18,7 @@ import {
   obtenerTodosLosTecnicomecController,
   obtenerTodosLosTiposCarroController,
   obtenerTodosLosTiposDocumentoController,
+  obtenerTodosLosTiposNovedadController,
 } from "../controllers/getData.js";
 
 const getInitRoute = () => {
@@ -46,6 +47,7 @@ const getInitRoute = () => {
   router.get("/obtenerTecnicomec", obtenerTodosLosTecnicomecController);
   router.get("/obtenerTiposCarros", obtenerTodosLosTiposCarroController);
   router.get("/obtenerTiposDoc", obtenerTodosLosTiposDocumentoController);
+  router.get("/obtenerTiposNovedad", obtenerTodosLosTiposNovedadController);
   return router;
 };
 

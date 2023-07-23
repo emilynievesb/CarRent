@@ -16,6 +16,17 @@ class TipoNovedad {
       throw error;
     }
   }
+
+  async obtenerTodosLosTiposNovedad() {
+    let sql = /*sql*/ `SELECT tn.id_tipo_novedad AS id, tn.nombre_tipo_novedad AS nombre,
+    tn.precio_tipo_novedad AS precio FROM tipo_novedad AS tn;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { TipoNovedad };
