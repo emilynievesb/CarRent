@@ -13,6 +13,15 @@ class Nacionalidad {
       throw error;
     }
   }
+  async obtenerTodasLasNacionalidades() {
+    let sql = /*sql*/ `SELECT id_nacionalidad AS id, nombre_nacionalidad AS nombre FROM nacionalidades;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Nacionalidad };

@@ -2,6 +2,7 @@ import { Carro } from "../entities/carro.js";
 import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Factura } from "../entities/factura.js";
 import { HistorialNovedades } from "../entities/historialnovedades.js";
+import { Nacionalidad } from "../entities/nacionalidad.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 
 const getPrecioHoraById = async (id) => {
@@ -79,6 +80,16 @@ const obtenerTodosLosHistoriales = async () => {
   }
 };
 
+const obtenerTodasLasNacionalidades = async () => {
+  const nacionalidad = new Nacionalidad();
+  try {
+    const result = await nacionalidad.obtenerTodasLasNacionalidades();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -88,4 +99,5 @@ export {
   obtenerTodasLasFacturas,
   obtenerFacturaPorId,
   obtenerTodosLosHistoriales,
+  obtenerTodasLasNacionalidades,
 };
