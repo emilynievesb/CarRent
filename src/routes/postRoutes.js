@@ -18,6 +18,7 @@ import {
 } from "../controllers/postData.js";
 import {
   agregarCarroDTO,
+  agregarEstadoVigenciaDTO,
   agregarNacionalidadDTO,
   agregarRolDTO,
   agregarTipoDocumentoDTO,
@@ -39,7 +40,11 @@ const postInitRoute = () => {
     agregarNacionalidadController
   );
   router.post("/agregarUsuario", agregarUsuarioDTO, agregarUsuarioController);
-  router.post("/agregarEstadoVigencia", agregarEstadoVigenciaController);
+  router.post(
+    "/agregarEstadoVigencia",
+    agregarEstadoVigenciaDTO,
+    agregarEstadoVigenciaController
+  );
   router.post("/agregarSoat", agregarSoatController);
   router.post("/agregarSeguro", agregarSeguroController);
   router.post("/agregarTecnicomec", agregarTecnicomecController);

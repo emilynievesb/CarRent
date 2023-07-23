@@ -95,10 +95,28 @@ const agregarUsuarioDTO = async (req, res, next) => {
   }
 };
 
+const agregarEstadoVigenciaDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      EstadoVigencia: string()
+        .matches(
+          /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/,
+          "Solo se permiten letras y espacios"
+        )
+        .required("El Estado de Vigencia es obligatorio"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
   agregarTipoDocumentoDTO,
   agregarNacionalidadDTO,
   agregarUsuarioDTO,
+  agregarEstadoVigenciaDTO,
 };
