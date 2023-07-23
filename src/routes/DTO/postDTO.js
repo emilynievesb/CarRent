@@ -259,6 +259,20 @@ const agregarReporteDTO = async (req, res, next) => {
   }
 };
 
+const agregarNovedadDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      IdTipoNovedad: number().required(),
+      Descripcion: string().required(),
+      IdHistorial: number().required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
@@ -273,4 +287,5 @@ export {
   agregarTipoNovedadDTO,
   agregarSedeDTO,
   agregarReporteDTO,
+  agregarNovedadDTO,
 };
