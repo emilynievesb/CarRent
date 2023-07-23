@@ -14,6 +14,16 @@ class TipoCarro {
       throw error;
     }
   }
+  async obtenerTodosLosTiposCarro() {
+    let sql = /*sql*/ `SELECT tc.id_tipo_carro AS id, tc.nombre_tipo_carro AS nombre 
+    FROM tipo_carro AS tc;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { TipoCarro };

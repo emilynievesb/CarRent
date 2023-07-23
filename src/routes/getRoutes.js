@@ -16,6 +16,7 @@ import {
   obtenerTodosLosSegurosController,
   obtenerTodosLosSoatController,
   obtenerTodosLosTecnicomecController,
+  obtenerTodosLosTiposCarroController,
 } from "../controllers/getData.js";
 
 const getInitRoute = () => {
@@ -42,6 +43,7 @@ const getInitRoute = () => {
   router.get("/obtenerSeguros", obtenerTodosLosSegurosController);
   router.get("/obtenerSoats", obtenerTodosLosSoatController);
   router.get("/obtenerTecnicomec", obtenerTodosLosTecnicomecController);
+  router.get("/obtenerTiposCarros", obtenerTodosLosTiposCarroController);
   return router;
 };
 
