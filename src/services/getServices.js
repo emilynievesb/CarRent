@@ -9,6 +9,7 @@ import { Rol } from "../entities/rol.js";
 import { Sede } from "../entities/sede.js";
 import { Seguro } from "../entities/seguro.js";
 import { Soat } from "../entities/soat.js";
+import { Tecnicomec } from "../entities/tecnicomec.js";
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
   carro.idCarro = id;
@@ -175,6 +176,16 @@ const obtenerTodosLosSoat = async () => {
   }
 };
 
+const obtenerTodosLosTecnicomec = async () => {
+  const tecnicomec = new Tecnicomec();
+  try {
+    const tecnicomecList = await tecnicomec.obtenerTodosLosTecnicomec();
+    return tecnicomecList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -193,4 +204,5 @@ export {
   obtenerTodasLasSedes,
   obtenerTodosLosSeguros,
   obtenerTodosLosSoat,
+  obtenerTodosLosTecnicomec,
 };

@@ -14,6 +14,7 @@ import {
   obtenerTodosLosRoles,
   obtenerTodosLosSeguros,
   obtenerTodosLosSoat,
+  obtenerTodosLosTecnicomec,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -170,6 +171,15 @@ const obtenerTodosLosSoatController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosTecnicomecController = async (req, res, next) => {
+  try {
+    const tecnicomecList = await obtenerTodosLosTecnicomec();
+    res.status(200).json(tecnicomecList);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -186,4 +196,5 @@ export {
   obtenerTodasLasSedesController,
   obtenerTodosLosSegurosController,
   obtenerTodosLosSoatController,
+  obtenerTodosLosTecnicomecController,
 };
