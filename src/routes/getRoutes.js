@@ -22,11 +22,16 @@ import {
   obtenerTodosLosUsuariosController,
   obtenerUsuarioPorIdController,
 } from "../controllers/getData.js";
+import { obtenerCarroPorIdDTO } from "./DTO/getDTO.js";
 
 const getInitRoute = () => {
   const router = Router();
   router.get("/obtenerCarros", obtenerTodosLosCarrosController);
-  router.get("/obtenerCarro", obtenerCarroPorIdController);
+  router.get(
+    "/obtenerCarro",
+    obtenerCarroPorIdDTO,
+    obtenerCarroPorIdController
+  );
   router.get(
     "/obtenerEstadosVigencia",
     obtenerTodosLosEstadosVigenciaController
