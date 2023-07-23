@@ -128,6 +128,34 @@ const agregarSoatDTO = async (req, res, next) => {
   }
 };
 
+const agregarSeguroDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      FechaInicio: date()
+        .test(
+          "validar-fecha",
+          "La Fecha de Inicio es obligatoria",
+          (value) => value instanceof Date
+        )
+        .transform((value) => value.toISOString().split("T")[0])
+        .required(),
+      FechaVencimiento: date()
+        .test(
+          "validar-fecha",
+          "La Fecha de Vencimiento es obligatoria",
+          (value) => value instanceof Date
+        )
+        .transform((value) => value.toISOString().split("T")[0])
+        .required(),
+      IdEstado: number().required("El Id de Estado es obligatorio"),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
 export {
   agregarCarroDTO,
   agregarRolDTO,
