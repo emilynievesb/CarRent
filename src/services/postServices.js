@@ -18,6 +18,7 @@ import {
   datosParaFacturaAlquilerById,
   getPrecioHoraById,
 } from "./getServices.js";
+import { actualizacionHistorial } from "./putServices.js";
 
 const agregarCarro = async (
   marca_carro,
@@ -200,8 +201,18 @@ const agregarNovedad = async (
   novedad.descripcion_novedad = descripcion_novedad;
   novedad.id_historial = id_historial;
   const query = await novedad.agregarNovedades();
+  novedad.id_novedad = query.insertId;
+  const result = await novedad.getNovedad();
+  const { precio_tipo_novedad } = result[0];
+  const queryPut = await actualizacionHistorial(
+    id_historial,
+    precio_tipo_novedad
+  );
+  if (queryPut.affectedRows !== 1) {
+    throw new Error("Falló la actualización de acumulado de daños");
+  }
   if (query.affectedRows === 1) {
-    return "Novedad creada correctamente";
+    return `Novedad creada correctamente, se agregaron $${precio_tipo_novedad.toLocaleString()} al recargo`;
   }
 };
 
