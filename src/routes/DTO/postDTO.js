@@ -58,4 +58,47 @@ const agregarTipoDocumentoDTO = async (req, res, next) => {
   }
 };
 
-export { agregarCarroDTO, agregarRolDTO, agregarTipoDocumentoDTO };
+const agregarNacionalidadDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      Nacionalidad: string()
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
+        .required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+const agregarUsuarioDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      Documento: number().required(),
+      IdTipoDocumento: number().required(),
+      Nombre: string()
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/)
+        .required(),
+      Correo: string().email().required(),
+      Direccion: string().required(),
+      Telefono: number().required(),
+      IdNacionalidad: number().required(),
+      Usuario: string().required(),
+      Contraseña: string().required(),
+      IdRol: number().required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export {
+  agregarCarroDTO,
+  agregarRolDTO,
+  agregarTipoDocumentoDTO,
+  agregarNacionalidadDTO,
+  agregarUsuarioDTO,
+};
