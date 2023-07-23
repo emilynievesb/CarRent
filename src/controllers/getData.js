@@ -18,6 +18,7 @@ import {
   obtenerTodosLosTiposCarro,
   obtenerTodosLosTiposDocumento,
   obtenerTodosLosTiposNovedad,
+  obtenerTodosLosUsuarios,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -210,6 +211,15 @@ const obtenerTodosLosTiposNovedadController = async (req, res, next) => {
   }
 };
 
+const obtenerTodosLosUsuariosController = async (req, res, next) => {
+  try {
+    const userList = await obtenerTodosLosUsuarios();
+    res.status(200).json(userList);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -229,5 +239,6 @@ export {
   obtenerTodosLosTecnicomecController,
   obtenerTodosLosTiposCarroController,
   obtenerTodosLosTiposDocumentoController,
+  obtenerTodosLosUsuariosController,
   obtenerTodosLosTiposNovedadController,
 };

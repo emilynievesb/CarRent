@@ -13,6 +13,7 @@ import { Tecnicomec } from "../entities/tecnicomec.js";
 import { TipoCarro } from "../entities/tipocarro.js";
 import { TipoDocumento } from "../entities/tipodocumento.js";
 import { TipoNovedad } from "../entities/tiponovedad.js";
+import { User } from "../entities/user.js";
 const getPrecioHoraById = async (id) => {
   const carro = new Carro();
   carro.idCarro = id;
@@ -220,6 +221,16 @@ const obtenerTodosLosTiposNovedad = async () => {
   }
 };
 
+const obtenerTodosLosUsuarios = async () => {
+  const user = new User();
+  try {
+    const userList = await user.obtenerTodosLosUsuarios();
+    return userList;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -242,4 +253,5 @@ export {
   obtenerTodosLosTiposCarro,
   obtenerTodosLosTiposDocumento,
   obtenerTodosLosTiposNovedad,
+  obtenerTodosLosUsuarios,
 };
