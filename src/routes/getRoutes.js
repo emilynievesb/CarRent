@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { obtenerTodosLosCarrosController } from "../controllers/getData.js";
+import {
+  obtenerCarroPorIdController,
+  obtenerTodosLosCarrosController,
+} from "../controllers/getData.js";
 
 const getInitRoute = () => {
   const router = Router();
   router.get("/obtenerCarros", obtenerTodosLosCarrosController);
+  router.get("/obtenerCarro", obtenerCarroPorIdController);
   return router;
 };
 

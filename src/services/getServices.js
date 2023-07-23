@@ -17,8 +17,19 @@ const datosParaFacturaAlquilerById = async (id) => {
 const obtenerTodosLosCarros = async () => {
   const carro = new Carro();
   try {
-    const carros = await carro.obtenerTodosLosCarros();
-    return carros;
+    const result = await carro.obtenerTodosLosCarros();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const obtenerCarroPorId = async (idCarro) => {
+  const carro = new Carro();
+  carro.idCarro = idCarro;
+  try {
+    const result = await carro.obtenerCarroPorId();
+    return result;
   } catch (error) {
     throw error;
   }
@@ -28,4 +39,5 @@ export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
   obtenerTodosLosCarros,
+  obtenerCarroPorId,
 };
