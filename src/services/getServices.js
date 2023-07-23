@@ -3,6 +3,7 @@ import { EstadoVigencia } from "../entities/estadovigencia.js";
 import { Factura } from "../entities/factura.js";
 import { HistorialNovedades } from "../entities/historialnovedades.js";
 import { Nacionalidad } from "../entities/nacionalidad.js";
+import { Novedades } from "../entities/novedades.js";
 import { ReporteAlquiler } from "../entities/reportealquiler.js";
 
 const getPrecioHoraById = async (id) => {
@@ -90,6 +91,16 @@ const obtenerTodasLasNacionalidades = async () => {
   }
 };
 
+const obtenerTodasLasNovedades = async () => {
+  const novedades = new Novedades();
+  try {
+    const result = await novedades.obtenerTodasLasNovedades();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -99,5 +110,6 @@ export {
   obtenerTodasLasFacturas,
   obtenerFacturaPorId,
   obtenerTodosLosHistoriales,
+  obtenerTodasLasNovedades,
   obtenerTodasLasNacionalidades,
 };

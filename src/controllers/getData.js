@@ -3,6 +3,7 @@ import {
   obtenerFacturaPorId,
   obtenerTodasLasFacturas,
   obtenerTodasLasNacionalidades,
+  obtenerTodasLasNovedades,
   obtenerTodosLosCarros,
   obtenerTodosLosEstadosVigencia,
   obtenerTodosLosHistoriales,
@@ -77,6 +78,15 @@ const obtenerTodasLasNacionalidadesController = async (req, res, next) => {
   }
 };
 
+const obtenerTodasLasNovedadesController = async (req, res, next) => {
+  try {
+    const result = await obtenerTodasLasNovedades();
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -85,4 +95,5 @@ export {
   obtenerFacturaPorIdController,
   obtenerTodosLosHistorialesController,
   obtenerTodasLasNacionalidadesController,
+  obtenerTodasLasNovedadesController,
 };

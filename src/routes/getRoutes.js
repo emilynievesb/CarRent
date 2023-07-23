@@ -4,6 +4,7 @@ import {
   obtenerFacturaPorIdController,
   obtenerTodasLasFacturasController,
   obtenerTodasLasNacionalidadesController,
+  obtenerTodasLasNovedadesController,
   obtenerTodosLosCarrosController,
   obtenerTodosLosEstadosVigenciaController,
   obtenerTodosLosHistorialesController,
@@ -24,6 +25,7 @@ const getInitRoute = () => {
     obtenerTodosLosHistorialesController
   );
   router.get("/obtenerNacionalidades", obtenerTodasLasNacionalidadesController);
+  router.get("/obtenerNovedades", obtenerTodasLasNovedadesController);
   return router;
 };
 

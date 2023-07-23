@@ -31,6 +31,20 @@ class Novedades {
       throw error;
     }
   }
+  async obtenerTodasLasNovedades() {
+    let sql = /*sql*/ `SELECT n.id_novedad AS id,
+       t.nombre_tipo_novedad AS tipo,
+       n.descripcion_novedad AS descripcion,
+       t.precio_tipo_novedad AS precio
+    FROM novedades n
+    INNER JOIN tipo_novedad t ON n.id_tipo_novedad = t.id_tipo_novedad;`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Novedades };
