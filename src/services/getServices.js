@@ -231,6 +231,17 @@ const obtenerTodosLosUsuarios = async () => {
   }
 };
 
+const obtenerUsuarioPorId = async (idUsuario) => {
+  const user = new User();
+  user.id_user = idUsuario;
+  try {
+    const userData = await user.obtenerUsuarioPorId();
+    return userData;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export {
   getPrecioHoraById,
   datosParaFacturaAlquilerById,
@@ -254,4 +265,5 @@ export {
   obtenerTodosLosTiposDocumento,
   obtenerTodosLosTiposNovedad,
   obtenerTodosLosUsuarios,
+  obtenerUsuarioPorId,
 };

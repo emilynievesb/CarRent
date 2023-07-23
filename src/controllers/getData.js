@@ -19,6 +19,7 @@ import {
   obtenerTodosLosTiposDocumento,
   obtenerTodosLosTiposNovedad,
   obtenerTodosLosUsuarios,
+  obtenerUsuarioPorId,
 } from "../services/getServices.js";
 
 const obtenerTodosLosCarrosController = async (req, res, next) => {
@@ -220,6 +221,16 @@ const obtenerTodosLosUsuariosController = async (req, res, next) => {
   }
 };
 
+const obtenerUsuarioPorIdController = async (req, res, next) => {
+  const { idUsuario } = req.query;
+  try {
+    const userData = await obtenerUsuarioPorId(idUsuario);
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 export {
   obtenerTodosLosCarrosController,
   obtenerCarroPorIdController,
@@ -241,4 +252,5 @@ export {
   obtenerTodosLosTiposDocumentoController,
   obtenerTodosLosUsuariosController,
   obtenerTodosLosTiposNovedadController,
+  obtenerUsuarioPorIdController,
 };

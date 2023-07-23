@@ -20,6 +20,7 @@ import {
   obtenerTodosLosTiposDocumentoController,
   obtenerTodosLosTiposNovedadController,
   obtenerTodosLosUsuariosController,
+  obtenerUsuarioPorIdController,
 } from "../controllers/getData.js";
 
 const getInitRoute = () => {
@@ -50,6 +51,7 @@ const getInitRoute = () => {
   router.get("/obtenerTiposDoc", obtenerTodosLosTiposDocumentoController);
   router.get("/obtenerTiposNovedad", obtenerTodosLosTiposNovedadController);
   router.get("/obtenerUsuarios", obtenerTodosLosUsuariosController);
+  router.get("/obtenerUsuario", obtenerUsuarioPorIdController);
   return router;
 };
 
