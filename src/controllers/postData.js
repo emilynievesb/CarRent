@@ -14,6 +14,7 @@ import {
   agregarTipoDocumento,
   agregarTipoNovedad,
   agregarUsuario,
+  loginUsuario,
 } from "../services/postServices.js";
 
 const agregarCarroController = async (req, res, next) => {
@@ -250,6 +251,18 @@ const agregarFacturaController = async (req, res, next) => {
   }
 };
 
+const loginUsuarioController = async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const result = await loginUsuario(username, password);
+    res.cookie("User", result, { maxAge: 600000, httpOnly: true });
+    console.log(result);
+    res.send({ result });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 export {
   agregarCarroController,
   agregarRolController,
@@ -266,4 +279,5 @@ export {
   agregarNovedadController,
   agregarReporteAlquilerController,
   agregarFacturaController,
+  loginUsuarioController,
 };

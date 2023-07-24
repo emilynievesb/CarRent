@@ -20,6 +20,8 @@ import {
 } from "./getServices.js";
 import { actualizacionHistorial } from "./putServices.js";
 
+import { SignJWT } from "jose";
+
 const agregarCarro = async (
   marca_carro,
   modelo_carro,
@@ -293,6 +295,30 @@ const agregarFactura = async (id_reporte_alquiler, fecha_final_real) => {
   }
 };
 
+const loginUsuario = async (username, contrasena) => {
+  const usuario = new User();
+  usuario.nickname_user = username;
+  usuario.contrasena_user = contrasena;
+  const result = await usuario.autenticacionUsuario();
+  if (result[0].count !== 1) {
+    throw new Error("No existe ese usuario, por favor registrese");
+  }
+  const { id_rol } = result[0];
+  let json = {
+    username,
+    contrasena,
+    id_rol,
+  };
+  const encoder = new TextEncoder();
+  const jwtconstructor = new SignJWT({ json });
+  const jwt = await jwtconstructor
+    .setProtectedHeader({ alg: "HS256", typ: "JWT" })
+    .setIssuedAt()
+    .setExpirationTime("1h")
+    .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
+  return jwt;
+};
+
 export {
   agregarCarro,
   agregarRol,
@@ -310,4 +336,5 @@ export {
   agregarHistorialNovedades,
   agregarReporteAlquiler,
   agregarFactura,
+  loginUsuario,
 };

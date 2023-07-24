@@ -34,6 +34,7 @@ class User {
     u.direccion_user AS direccion, u.telefono_user AS telefono,
     n.nombre_nacionalidad AS nacionalidad,
     u.nickname_user AS nickname,
+    u.contrasena_user AS contrasena,
     r.nombre_rol AS rol FROM users AS u
     INNER JOIN tipo_documento AS td ON u.id_tipo_doc = td.id_tipo_doc
     INNER JOIN nacionalidades AS n ON u.id_nacionalidad = n.id_nacionalidad
@@ -46,13 +47,25 @@ class User {
     }
   }
 
+  async autenticacionUsuario() {
+    let sql = /*sql*/ `SELECT COUNT(*) AS count, id_rol FROM users
+    WHERE nickname_user = \"${this.nickname_user}\" AND contrasena_user = \"${this.contrasena_user}\"`;
+    try {
+      const result = await executeQuery(sql);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async obtenerUsuarioPorId() {
-    let sql = /*sql*/ `SELECT u.id_user AS id, u.doc_user AS documento, 
-    td.nombre_tipo_documento AS tipo_documento, 
-    u.nombre_user AS nombre, u.correo_user AS correo, 
-    u.direccion_user AS direccion, u.telefono_user AS telefono, 
-    n.nombre_nacionalidad AS nacionalidad, 
-    u.nickname_user AS nickname, 
+    let sql = /*sql*/ `SELECT u.id_user AS id, u.doc_user AS documento,
+    td.nombre_tipo_documento AS tipo_documento,
+    u.nombre_user AS nombre, u.correo_user AS correo,
+    u.direccion_user AS direccion, u.telefono_user AS telefono,
+    n.nombre_nacionalidad AS nacionalidad,
+    u.nickname_user AS nickname,
+    u.contrasena_user AS contrasena,
     r.nombre_rol AS rol FROM users AS u
     INNER JOIN tipo_documento AS td ON u.id_tipo_doc = td.id_tipo_doc
     INNER JOIN nacionalidades AS n ON u.id_nacionalidad = n.id_nacionalidad
