@@ -29,6 +29,7 @@ import {
   obtenerReportePorIdDTO,
   obtenerUsuarioPorIdDTO,
 } from "./DTO/getDTO.js";
+import { middlewareValidLog } from "../utils/auth.js";
 
 const getInitRoute = () => {
   const router = Router();
