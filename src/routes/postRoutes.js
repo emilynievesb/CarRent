@@ -33,12 +33,13 @@ import {
   agregarTipoDocumentoDTO,
   agregarTipoNovedadDTO,
   agregarUsuarioDTO,
+  loginUsuarioDTO,
 } from "./DTO/postDTO.js";
 import { middlewareValidLog } from "../utils/auth.js";
 
 const postInitRoute = () => {
   const router = Router();
-  router.post("/login", loginUsuarioController);
+  router.post("/login", loginUsuarioDTO, loginUsuarioController);
   router.post(
     "/agregarCarro",
     middlewareValidLog,

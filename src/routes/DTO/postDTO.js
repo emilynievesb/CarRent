@@ -251,7 +251,7 @@ const agregarReporteDTO = async (req, res, next) => {
         /^\d{4}-\d{2}-\d{2}$/,
         'El formato de fecha debe ser "YYYY-MM-DD"'
       ),
-    });
+    }).required();
     await productSchema.validate(req.body);
     next();
   } catch (error) {
@@ -281,6 +281,19 @@ const agregarFacturaDTO = async (req, res, next) => {
         /^\d{4}-\d{2}-\d{2}$/,
         'El formato de fecha debe ser "YYYY-MM-DD"'
       ),
+    }).required();
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+const loginUsuarioDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      username: string().required(),
+      password: string().required(),
     });
     await productSchema.validate(req.body);
     next();
@@ -305,4 +318,5 @@ export {
   agregarReporteDTO,
   agregarNovedadDTO,
   agregarFacturaDTO,
+  loginUsuarioDTO,
 };
