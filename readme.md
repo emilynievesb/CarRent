@@ -53,7 +53,7 @@ Además de esto, es necesario mencionar que los paquetes usados fueron las sigui
 
 ## Base de datos
 
-Para obtener la base de datos, ejecuta el archivo `db.sql` que esta ubicado en la carpeta utils dentro de la carpeta src.
+Para obtener la base de datos, ejecuta el archivo `db.sql` que esta ubicado en la carpeta utils dentro de la carpeta src. Ya sea en alguna extensión de tu editor de texto que te permita hacer conexión a tu base local o en tu programa de preferencia puedes copiar y pegar el script.
 
 ## Ejecución
 
