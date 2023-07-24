@@ -26,6 +26,15 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu máquina:
 - Node.js: https://nodejs.org
 - MySQL: https://www.mysql.com
 
+Además de esto, es necesario mencionar que los paquetes usados fueron las siguientes:
+
+- cookie-parser: Para el manejo de las cookies al momento de realizar la autenticación respectiva en cada ruta necesaria.
+- dotenv: Para usar variables de entorno.
+- express: Para realizar el montaje del servidor y de la api como tal.
+- jose: Para el uso del Json Web Token (JWT).
+- mysql2: Para poder hacer una conexión a nuestra base de datos.
+- yup: Para el DTO, es decir, la validación en la transferencia de datos.
+
 ## Configuración
 
 1.  Clona este repositorio en tu máquina local.
@@ -38,6 +47,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente en tu máquina:
 
         MY_CONFIG={"host":"localhost", "user":"root","database": NOMBRE_DB,"password":"", "port":3306}
         MY_SERVER={"hostname":"127.20.20.1", "port":5000}
+        JWT_PRIVATE_KEY="PalabraSecreta"
 
     ###### Asegurate de cambiar NOMBRE_DB y demás configuraciones según tus necesidades
 
@@ -51,6 +61,41 @@ Para ejecutar correctamente el servidor debes asegurarte de tener `nodemon`, ya 
 
         npm run dev
 
+## Autorización
+
+Para usar nuestra api debes tener en cuenta que no todos los usuarios tienen acceso a las ruta, solo aquel que tiene el rol de administrador (id:2), puede tener acceso completo a todas las rutas, los clientes (id:1), solo tendran acceso a una cantidad reducida de ellas.
+
+Estos es posible gracias al uso de JWT y la autenticación de credenciales a través de una consulta a las tabla `users`.
+
+Los pasos que usamos para crear todo lo anterior son los siguientes.
+
+###### RECUERDA QUE LA IP DEL SERVIDOR SERÁ LA CORRESPONDIENTE EN EL ARCHIVO `.env` descrita en el `hostname`. Los valores de cada dato acontinuación son netamente ejemplos de lo que podrían contener los datos de entrada.
+
+1.  El usuario (sea administrador o cliente) deberá logearse a través del siguiente endpoint
+
+    - URL: `http://127.20.30.1:5005/api/post/login`
+    - Método: `POST`
+    - Datos de entrada (body):
+      ```
+        {
+            "username":"admin",
+            "password":"admin123"
+        }
+      ```
+    - Datos de salida: Nos devolverá el token creado y guardado en un cookie llamada `User`
+
+    **Es importante recalcar que en el ejemplo anterior se usó un user con rol de administración por lo que tendrá acceso a todas las rutas.**
+
+2.  Luego de logearse, el usuario podrá empezar a consumir la api durante cierto tiempo. Nuestra api cuenta con un tiempo máximo de espera entre petición y petición de 10min, ya que cada vez que consumes un endpoint, te renovamos tu cookie por 10min, de pasarte de ese tiempo, deberás volver a logearte.
+
+3.  Cada vez que haces una petición a una ruta, entra un middleware a validar el rol que tienes en nuestra base de datos, y según el rol te permite o no seguir con tu consulta.
+
+4.  Supongamos que entraste con un usuario que tiene el rol de cliente. A las URL que no tengas permitidas tendrás un mensaje como el siguiente:
+
+          "El usuario no tiene permitido usar esta ruta"
+
+5.  Llegado el caso de que el usuario no tenga un registro en nuestra base de datos, podrá registrarse a través del endpoint descrito en el siguiente apartado donde hablamos de una situación hipotética.
+
 ## Situación hipotética
 
 En esta situación hipotética pondremos un ejemplo en todo el proceso de alquiler de un carro
@@ -61,6 +106,7 @@ En esta situación hipotética pondremos un ejemplo en todo el proceso de alquil
 
     - URL: `http://127.20.30.1:5005/api/post/agregarUsuario`
     - Método: `POST`
+    - Disponibilidad: Todos los roles.
     - Datos de entrada (body):
       ```
         {
@@ -86,6 +132,7 @@ En esta situación hipotética pondremos un ejemplo en todo el proceso de alquil
 
     - URL: `http://127.20.30.1:5005/api/post/agregarReporte`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -113,6 +160,7 @@ En esta situación hipotética pondremos un ejemplo en todo el proceso de alquil
 
     - URL: `http://127.20.30.1:5005/api/post/agregarNovedad`
     - Método: `POST`
+    - Disponibilidad: Todos los roles.
     - Datos de entrada (body):
 
       ```
@@ -135,6 +183,7 @@ En esta situación hipotética pondremos un ejemplo en todo el proceso de alquil
 
     - URL: `http://127.20.30.1:5005/api/post/agregarFactura`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -160,10 +209,13 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
 ###### RECUERDA QUE LA IP DEL SERVIDOR SERÁ LA CORRESPONDIENTE EN EL ARCHIVO `.env` descrita en el `hostname`. Los valores de cada dato acontinuación son netamente ejemplos de lo que podrían contener los datos de entrada.
 
+_Algunos endpoints no están habilitados para todos los usuarios, por lo que se describirá en cada uno, cuales están abiertos para todos los roles, y cuales solamente para el administrador_
+
 1.  Agregar carros
 
     - URL: `http://127.20.30.1:5005/api/post/agregarCarro`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
       ```
         {
@@ -188,6 +240,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarRol`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
       ```
         {
@@ -202,6 +255,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarTipoDocumento`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -218,6 +272,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarNacionalidad`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
       ```
         {
@@ -232,6 +287,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarEstadoVigencia`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
       ```
         {
@@ -246,6 +302,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarSoat`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -264,6 +321,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarSeguro`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -282,6 +340,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarTecnicomec`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -300,6 +359,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarTipoCarro`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -316,6 +376,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarTipoNovedad`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -333,6 +394,7 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
     - URL: `http://127.20.30.1:5005/api/post/agregarSede`
     - Método: `POST`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (body):
 
       ```
@@ -351,12 +413,15 @@ Si llegado el caso los datos iniciales agregados en la base de datos, no son suf
 
 ###### RECUERDA QUE LA IP DEL SERVIDOR SERÁ LA CORRESPONDIENTE EN EL ARCHIVO `.env` descrita en el `hostname`. Los valores de cada dato acontinuación son netamente ejemplos de lo que podrían contener los datos de entrada.
 
+_Algunos endpoints no están habilitados para todos los usuarios, por lo que se describirá en cada uno, cuales están abiertos para todos los roles, y cuales solamente para el administrador_
+
 Para poder acceder a los datos registrados en la base de datos, usaremos los siguientes endpoints:
 
 1.  Obtener todos los carros
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerCarros`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -408,6 +473,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerCarro?idCarro=2`
     - Método: `GET`
+    - Disponibilidad: Todos los roles.
     - Datos de entrada (query): idCarro, recuerda reemplazar el valor de idCarro por el id del carro que realmente necesitas.
     - Datos de salida:
 
@@ -431,6 +497,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerEstadosVigencia`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -451,6 +518,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerFacturas`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -508,6 +576,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerFactura?idFactura=13`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): idFactura, recuerda reemplazar el valor de idFactura por el id de la factura que realmente necesitas.
     - Datos de salida:
 
@@ -533,6 +602,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerHistorialesNovedades`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -557,6 +627,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerNacionalidades`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -585,6 +656,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerNovedades`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -615,6 +687,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerNovedad?idNovedad=2`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): idNovedad, recuerda reemplazar el valor de idNovedad por el id de la novedad que realmente necesitas.
     - Datos de salida:
 
@@ -631,6 +704,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerReportes`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -670,6 +744,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerReporte?idReporte=2`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): idReporte, recuerda reemplazar el valor de idReporte por el id del reporte que realmente necesitas.
     - Datos de salida:
 
@@ -689,6 +764,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerRoles`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -709,6 +785,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerSedes`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -739,6 +816,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerSeguros`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -763,6 +841,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerSoats`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -788,6 +867,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerTecnicomec`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -812,6 +892,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerRoles`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -840,6 +921,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerTiposDoc`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -864,6 +946,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerTiposNovedad`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -896,6 +979,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerUsuarios`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): Ninguno.
     - Datos de salida:
 
@@ -944,6 +1028,7 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
 
     - URL: `http://127.20.30.1:5005/api/get/obtenerUsuario?idUsuario=8`
     - Método: `GET`
+    - Disponibilidad: Solo administrador.
     - Datos de entrada (query): idUsuario, recuerda reemplazar el valor de idUsuario por el id del usuario que realmente necesitas.
     - Datos de salida:
 
@@ -961,3 +1046,41 @@ Para poder acceder a los datos registrados en la base de datos, usaremos los sig
             "rol": "Cliente"
         }
       ```
+
+## DTO con YUP
+
+## Validación de datos (DTO)
+
+- Se realizó la validación de datos a través de la librería `YUP`. La librería Yup permite definir un esquema que describe la forma en que los datos deben ser validados.
+
+- Al utilizar Yup para los DTO, puedes definir un esquema que especifique las reglas de validación que se deben aplicar a cada campo del DTO. Estas reglas pueden incluir validaciones como requerido, tipo de dato, longitud mínima o máxima, formato específico, entre otros.
+
+- Un ejemplo de uno de los esquemas que se pueden crear es este:
+
+  ```
+  const addProductValidator = async (req, res, next) => {
+    try {
+      const productSchema = object({
+        nombre: string()
+          .strict()
+          .matches(/^[a-z A-Z]+$/, "Is not in correct format")
+          .required(),
+        descripcion: string().optional(),
+        estado: number().max(1).required(),
+        created_by: number().nullable().optional(),
+        update_by: number().nullable().optional(),
+        created_at: date().nullable().optional(),
+        updated_at: date().nullable().optional(),
+        deleted_at: date().nullable().optional(),
+      });
+      await productSchema.validate(req.body);
+      next();
+    } catch (error) {
+      res.status(400).json({ status: "fail", message: error.errors });
+    }
+  };
+  ```
+
+- Se creó un middleware, donde se valida la composición de los datos dentro de la request. Se instancia un objeto que describe el esquema de la request y se valida el body o el query según lo escrito en el esquema. El `validate()` es una promesa que generas una excepción en caso de no pasar la validación, y dentro del catch se hace la validación de excepciones, respondiendo un status `400` y un mensaje de error. Si la request sale OK, se ejecuta un `next`, que le avisa a express de debe ejecutar el siguiente middleware (en este caso, el endpoint o servicio que genera y responde a una consulta).
+
+### Autora: Emily Nieves
