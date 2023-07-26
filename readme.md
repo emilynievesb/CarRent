@@ -90,7 +90,20 @@ Los pasos que usamos para crear todo lo anterior son los siguientes.
 
 3.  Cada vez que haces una petición a una ruta, entra un middleware a validar el rol que tienes en nuestra base de datos, y según el rol te permite o no seguir con tu consulta.
 
-4.  Supongamos que entraste con un usuario que tiene el rol de cliente. A las URL que no tengas permitidas tendrás un mensaje como el siguiente:
+4.  Supongamos que entraste con un usuario que tiene el rol de cliente.
+
+    - URL: `http://127.20.30.1:5005/api/post/login`
+    - Método: `POST`
+    - Datos de entrada (body):
+
+      ```
+        {
+            "username":"juan123",
+            "password":"contrasena123"
+        }
+      ```
+
+    - A las URL que no tengas permitidas tendrás un mensaje como el siguiente:
 
           "El usuario no tiene permitido usar esta ruta"
 
