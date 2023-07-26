@@ -35,87 +35,96 @@ import {
   agregarUsuarioDTO,
   loginUsuarioDTO,
 } from "./DTO/postDTO.js";
-import { middlewareValidLog } from "../utils/auth.js";
+import {
+  middlewareValidLogAdmin,
+  middlewareValidLogClient,
+} from "../utils/auth.js";
 
 const postInitRoute = () => {
   const router = Router();
   router.post("/login", loginUsuarioDTO, loginUsuarioController);
   router.post(
     "/agregarCarro",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarCarroDTO,
     agregarCarroController
   );
   router.post(
     "/agregarRol",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarRolDTO,
     agregarRolController
   );
   router.post(
     "/agregarTipoDocumento",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarTipoDocumentoDTO,
     agregarTipoDocumentoController
   );
   router.post(
     "/agregarNacionalidad",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarNacionalidadDTO,
     agregarNacionalidadController
   );
   router.post("/agregarUsuario", agregarUsuarioDTO, agregarUsuarioController);
   router.post(
     "/agregarEstadoVigencia",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarEstadoVigenciaDTO,
     agregarEstadoVigenciaController
   );
   router.post(
     "/agregarSoat",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarSoatDTO,
     agregarSoatController
   );
   router.post(
     "/agregarSeguro",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarSeguroDTO,
     agregarSeguroController
   );
   router.post(
     "/agregarTecnicomec",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarTecnicomecDTO,
     agregarTecnicomecController
   );
   router.post(
     "/agregarTipoNovedad",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarTipoNovedadDTO,
     agregarTipoNovedadController
   );
   router.post(
     "/agregarTipoCarro",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarTipoCarroDTO,
     agregarTipoCarroController
   );
   router.post(
     "/agregarSede",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarSedeDTO,
     agregarSedeController
   );
-  router.post("/agregarNovedad", agregarNovedadDTO, agregarNovedadController);
+  router.post(
+    "/agregarNovedad",
+    middlewareValidLogClient,
+    agregarNovedadDTO,
+    agregarNovedadController
+  );
   router.post(
     "/agregarReporte",
+    middlewareValidLogClient,
     agregarReporteDTO,
     agregarReporteAlquilerController
   );
   router.post(
     "/agregarFactura",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     agregarFacturaDTO,
     agregarFacturaController
   );

@@ -231,13 +231,7 @@ const agregarReporteAlquilerController = async (req, res, next) => {
     );
     res.status(200).json(result);
   } catch (error) {
-    if (error.error.sqlState === "23000") {
-      res
-        .status(500)
-        .json("Se ha ingresado un valor no existente en alguno de los campos");
-    } else {
-      res.status(500).json(error.message);
-    }
+    res.status(500).json(error.message);
   }
 };
 
@@ -255,7 +249,6 @@ const loginUsuarioController = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const result = await loginUsuario(username, password);
-    res.cookie("User", result, { maxAge: 600000, httpOnly: true });
     console.log(result);
     res.send({ result });
   } catch (error) {

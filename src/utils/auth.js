@@ -1,13 +1,12 @@
 import { jwtVerify } from "jose";
 
-const middlewareValidLog = async (req, res, next) => {
-  const authorization = req.cookies.User;
+const middlewareValidLogAdmin = async (req, res, next) => {
+  const { authorization } = req.headers;
   if (!authorization)
     return res
       .status(401)
       .send({ token: "token de autorizacion no proporcionado" });
   try {
-    res.cookie("User", authorization, { maxAge: 600000, httpOnly: true });
     const encoder = new TextEncoder();
     const jwData = await jwtVerify(
       authorization,
@@ -24,5 +23,23 @@ const middlewareValidLog = async (req, res, next) => {
     res.status(401).send(error.message);
   }
 };
+const middlewareValidLogClient = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization)
+    return res
+      .status(401)
+      .send({ token: "token de autorizacion no proporcionado" });
+  try {
+    const encoder = new TextEncoder();
+    const jwData = await jwtVerify(
+      authorization,
+      encoder.encode(process.env.JWT_PRIVATE_KEY)
+    );
+    console.log(jwData.payload.json);
+    next();
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
+};
 
-export { middlewareValidLog };
+export { middlewareValidLogAdmin, middlewareValidLogClient };

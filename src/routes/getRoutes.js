@@ -29,116 +29,120 @@ import {
   obtenerReportePorIdDTO,
   obtenerUsuarioPorIdDTO,
 } from "./DTO/getDTO.js";
-import { middlewareValidLog } from "../utils/auth.js";
+import {
+  middlewareValidLogAdmin,
+  middlewareValidLogClient,
+} from "../utils/auth.js";
 
 const getInitRoute = () => {
   const router = Router();
   router.get(
     "/obtenerCarros",
-    middlewareValidLog,
+    middlewareValidLogClient,
     obtenerTodosLosCarrosController
   );
   router.get(
     "/obtenerCarro",
+    middlewareValidLogClient,
     obtenerCarroPorIdDTO,
     obtenerCarroPorIdController
   );
   router.get(
     "/obtenerEstadosVigencia",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosEstadosVigenciaController
   );
   router.get(
     "/obtenerFacturas",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodasLasFacturasController
   );
   router.get(
     "/obtenerFactura",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerFacturaPorIdDTO,
     obtenerFacturaPorIdController
   );
   router.get(
     "/obtenerHistorialesNovedades",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosHistorialesController
   );
   router.get(
     "/obtenerNacionalidades",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodasLasNacionalidadesController
   );
   router.get(
     "/obtenerNovedades",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodasLasNovedadesController
   );
   router.get(
     "/obtenerNovedad",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerNovedadPorIdDTO,
     obtenerNovedadPorIdController
   );
   router.get(
     "/obtenerReportes",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosReportesController
   );
   router.get(
     "/obtenerReporte",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerReportePorIdDTO,
     obtenerReportePorIdController
   );
   router.get(
     "/obtenerRoles",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosRolesController
   );
   router.get(
     "/obtenerSedes",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodasLasSedesController
   );
   router.get(
     "/obtenerSeguros",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosSegurosController
   );
   router.get(
     "/obtenerSoats",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosSoatController
   );
   router.get(
     "/obtenerTecnicomec",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosTecnicomecController
   );
   router.get(
     "/obtenerTiposCarros",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosTiposCarroController
   );
   router.get(
     "/obtenerTiposDoc",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosTiposDocumentoController
   );
   router.get(
     "/obtenerTiposNovedad",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosTiposNovedadController
   );
   router.get(
     "/obtenerUsuarios",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerTodosLosUsuariosController
   );
   router.get(
     "/obtenerUsuario",
-    middlewareValidLog,
+    middlewareValidLogAdmin,
     obtenerUsuarioPorIdDTO,
     obtenerUsuarioPorIdController
   );
